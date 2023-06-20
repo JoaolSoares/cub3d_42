@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/13 20:14:51 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/19 20:44:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,9 @@
 # include "../lib/include/libft.h"
 # include <stdio.h>
 # include <errno.h>
+#include <sys/types.h>
+#include <sys/stat.h>
+#include <fcntl.h>
 
 //  DEFINES  //
 
@@ -28,15 +31,27 @@ typedef enum s_bool
 
 }	t_bool;
 
+typedef struct s_texture
+{
+	char	*no;
+	char	*so;
+	char	*we;
+	char	*ea;
+	char	*floor;
+	char	*ceil;
+
+}	t_texture;
+
 typedef struct s_map
 {
-	
+	char		**map;
+	t_texture	*tx;
 
 }	t_map;
 
 typedef struct s_cub
 {
-	
+
 	t_map	*map;
 
 }	t_cub;

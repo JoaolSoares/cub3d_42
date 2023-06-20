@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/13 20:26:05 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/19 21:53:32 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,12 +27,38 @@ static void	arg_validation(int argc, char *argv[])
 	}
 }
 
+t_cub	*init_cub(char *file)
+{
+	int		fd;
+	t_cub	*cub;
+	char	*line;
+
+	fd = open(file, O_RDONLY);
+	if (fd < 0)
+		exit(20);
+
+	cub = (t_cub *)malloc(sizeof(t_cub));
+	cub->map = (t_map *)malloc(sizeof(t_map));
+	cub->map->tx = (t_texture *)malloc(sizeof(t_texture));
+
+	line = get_next_line(fd);
+	while (line)
+	{
+		// ir lendo as linhas e adicionando as variaveis no mapa e texturas
+		free(line);
+		line = get_next_line(fd);
+	}
+
+	return (cub);
+}
+
 int	main(int argc, char *argv[])
 {
 	t_cub	*cub;
 
 	arg_validation(argc, argv);
-	map_validation();
+	cub = init_cub(argv[1]);
+	// map_validation();
 
 	return (0);
 }
