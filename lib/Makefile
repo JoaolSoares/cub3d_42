@@ -29,7 +29,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
         src/str_functions/ft_strchr.c		\
         src/str_functions/ft_strdup.c		\
         src/str_functions/ft_mtxdup.c		\
-        src/str_functions/ft_until_strdup.c	\
+        src/str_functions/ft_strdup_until.c	\
         src/str_functions/ft_strlcat.c		\
         src/str_functions/ft_strlcpy.c		\
         src/str_functions/ft_strlen.c		\

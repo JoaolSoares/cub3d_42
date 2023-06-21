@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/19 20:44:41 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:00:10 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,29 +23,30 @@
 
 //  DEFINES  //
 
+
 //  STRUCTS  //
+typedef enum s_tx
+{
+	NO,
+	SO,
+	WE,
+	EA,
+	F,
+	C,
+
+}	t_tx;
+
 typedef enum s_bool
 {
 	FALSE,
-	TRUE
+	TRUE,
 
 }	t_bool;
-
-typedef struct s_texture
-{
-	char	*no;
-	char	*so;
-	char	*we;
-	char	*ea;
-	char	*floor;
-	char	*ceil;
-
-}	t_texture;
 
 typedef struct s_map
 {
 	char		**map;
-	t_texture	*tx;
+	char		**textures;
 
 }	t_map;
 

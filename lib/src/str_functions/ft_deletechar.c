@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_deletechar.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/03/09 12:00:14 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/03/09 15:41:59 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/20 21:53:45 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ char	*ft_deletechar(char *str, size_t index)
 		temp[index] = temp[index + 1];
 		index++;
 	}
-	ret = ft_until_strdup(temp, ft_strlen(temp) - 1);
+	ret = ft_strdup_until(temp, ft_strlen(temp) - 1);
 	free(temp);
 	return (ret);
 }
