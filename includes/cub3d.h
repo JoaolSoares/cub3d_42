@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/20 21:00:10 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/06/21 20:35:00 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ typedef enum s_bool
 typedef struct s_map
 {
 	char		**map;
+	int			height;
+	int			width;
 	char		**textures;
 
 }	t_map;
@@ -59,6 +61,8 @@ typedef struct s_cub
 
 
 //  FUNCTIONS  //
+// init //
+t_cub	*init_cub(char *file);
 
 
 #endif

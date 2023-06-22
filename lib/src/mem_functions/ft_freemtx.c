@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_strlen_until.c                                  :+:      :+:    :+:   */
+/*   ft_freemtx.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/13 23:43:23 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/21 19:02:14 by jlucas-s         ###   ########.fr       */
+/*   Created: 2023/06/21 19:07:37 by jlucas-s          #+#    #+#             */
+/*   Updated: 2023/06/21 19:09:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../../include/libft.h"
 
-size_t	ft_strlen_until(const char *s, char c)
+void	ft_freemtx(char **split)
 {
 	int	i;
 
-	i = 0;
-	while (s[i] && s[i] != c)
-		++i;
-	return (i);
+	i = -1;
+	if (!split)
+		return ;
+	while (split[++i])
+		free(split[i]);
+	free(split);
 }

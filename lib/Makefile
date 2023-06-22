@@ -10,6 +10,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
         src/is_functions/ft_isdigit.c		\
         src/is_functions/ft_isprint.c		\
 		src/is_functions/ft_str_isnum.c		\
+        src/mem_functions/ft_freemtx.c		\
         src/mem_functions/ft_bzero.c		\
         src/mem_functions/ft_calloc.c		\
     	src/mem_functions/ft_memchr.c		\
