@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/26 21:08:12 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:34:54 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char *argv[])
 	// map_validation();
 
 	ft_freemtx(cub->map->textures);
-	// ft_freemtx(cub->map->map);
+	ft_freemtx(cub->map->map);
 	free(cub->map);
 	free(cub);
 

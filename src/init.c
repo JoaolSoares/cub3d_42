@@ -6,25 +6,11 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:20:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/26 21:22:12 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/26 21:58:22 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-static int line_is_empty(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str && str[i] && str[i] != '\n')
-	{
-		if(str[i] != ' ' && str[i] != '\t')
-			return (FALSE);	
-		i++;
-	}
-	return (TRUE);
-}
 
 static int	pick_file_size(char *file)
 {
@@ -48,7 +34,7 @@ static int	pick_file_size(char *file)
 	return (i);
 }
 
-char	**get_file_content(char *file)
+static char	**get_file_content(char *file)
 {
 	int		fd;
 	int		i;
@@ -65,49 +51,6 @@ char	**get_file_content(char *file)
 	return(file_content);
 }
 
-int	get_textures(t_cub *cub, char **content)
-{
-	int			i;
-	int			texture_posi;
-	char		**temp;
-
-	i = 0;
-	texture_posi = 0;
-	while (content[i])
-	{
-		if (texture_posi <= 5 && line_is_empty(content[i]) == FALSE)
-		{
-			temp = ft_split(content[i], ' ', 0);
-			if ((!ft_strncmp(temp[0], "NO", 3) && texture_posi == NO) ||	\
-				(!ft_strncmp(temp[0], "SO", 3) && texture_posi == SO) ||	\
-				(!ft_strncmp(temp[0], "WE", 3) && texture_posi == WE) ||	\
-				(!ft_strncmp(temp[0], "EA", 3) && texture_posi == EA) ||	\
-				(!ft_strncmp(temp[0], "F", 2) && texture_posi == F) ||		\
-				(!ft_strncmp(temp[0], "C", 2) && texture_posi == C))
-			{
-				cub->map->textures[texture_posi] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-				texture_posi++;
-			}
-			else
-			{
-				ft_freemtx(temp);
-				ft_freemtx(content);
-				ft_freemtx(cub->map->textures);
-				free(cub->map);
-				free(cub);
-				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
-				exit(31);
-			}
-			ft_freemtx(temp);
-		}
-		else
-			return (i);
-		i++;
-	}
-	return(0);
-}
-
-
 t_cub	*init_cub(char *file)
 {
 	t_cub	*cub;
@@ -122,9 +65,10 @@ t_cub	*init_cub(char *file)
 
 	i_map = get_textures(cub, file_content);
 	
+	// isso não da o tamanho do mapa real, não considera linhas vazias antes e dps do mapa
 	cub->map->map = ft_calloc(sizeof(char *) * (pick_file_size(file) - i_map), pick_file_size(file) - i_map);
 	
-	get_map(cub, file_content);
+	// get_map(cub, file_content, i_map);
 
 
 
@@ -133,8 +77,8 @@ t_cub	*init_cub(char *file)
 	while (cub->map->textures[++i])
 		ft_printf("tx[%i] = %s\n", i, cub->map->textures[i]);
 	i = -1;
-	// while (cub->map->map[++i])
-	// 	ft_printf("map[%i] = |%s|\n", i, cub->map->map[i]);
+	while (cub->map->map[++i])
+		ft_printf("map[%i] = |%s|\n", i, cub->map->map[i]);
 	// PRINT
 
 	ft_freemtx(file_content);
