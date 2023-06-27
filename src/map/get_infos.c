@@ -6,13 +6,13 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:53 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/26 21:58:17 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/27 20:44:00 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int line_is_empty(char *str)
+int line_is_empty(char *str)
 {
 	int i;
 
@@ -57,29 +57,29 @@ int	get_textures(t_cub *cub, char **content)
 				free(cub->map);
 				free(cub);
 				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
-				exit(31);
+				exit(41);
 			}
 			ft_freemtx(temp);
 		}
 		if (texture_posi > 5)
-			return (i + 1);
+		{
+			while (line_is_empty(content[++i]) == TRUE) ;
+			return (i);
+		}
 		i++;
 	}
 	return(0);
 }
 
-// void	get_map(t_cub *cub, char **content, int i_map)
-// {
-// 	// int	i;
+void	get_map(t_cub *cub, char **content, int i_map)
+{
+	int	i;
 
-// 	// i = 0;
-// 	while (content[i_map])
-// 	{
-// 		ft_printf("map[%i] = %s", i_map, content[i_map]);
-// 		// cub->map->map[i] = ft_strdup_until(content[i_map], ft_strlen(content[i_map]) - 1);
-// 		i_map++;
-// 		// i++;
-// 	}
-// 	ft_printf("%p", cub);
-	
-// }
+	i = 0;
+	while (line_is_empty(content[i_map]) == FALSE)
+	{
+		cub->map->map[i] = ft_strdup_until(content[i_map], ft_strlen(content[i_map]) - 1);
+		i_map++;
+		i++;
+	}
+}
