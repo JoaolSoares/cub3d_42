@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:55:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/21 19:09:50 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/26 20:34:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@
 # include <stdarg.h>
 
 //	DEFINES
-# define BUFFER_SIZE 42
+# define BUFFER_SIZE 1024
 
 /* ------------ FUNCTIONS ------------ */
 //	IS_FUNCTIONS
