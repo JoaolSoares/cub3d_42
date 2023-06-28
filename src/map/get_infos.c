@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   map_infos.c                                        :+:      :+:    :+:   */
+/*   get_infos.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:53 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 20:44:00 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:16:04 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ int	get_textures(t_cub *cub, char **content)
 			}
 			ft_freemtx(temp);
 		}
-		if (texture_posi > 5)
+		else if (texture_posi > 5)
 		{
 			while (line_is_empty(content[++i]) == TRUE) ;
 			return (i);

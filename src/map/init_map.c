@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:20:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 20:46:14 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/27 21:04:25 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,8 +20,10 @@ static int	get_file_size(char *file)
 
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
+	{
+		ft_putstr_fd("Error\nunable to read map\n", STDERR_FILENO);
 		exit(31);
-
+	}
 	buffer = get_next_line(fd);
 	i = 0;
 	while (buffer)
@@ -39,15 +41,18 @@ static char	**get_file_content(char *file)
 	int		fd;
 	int		i;
 	char	**file_content;
-	
+
 	file_content = (char **)malloc(sizeof(char *) * (get_file_size(file) + 1));
 	fd = open(file, O_RDONLY);
 	if (fd < 0)
+	{
+		ft_putstr_fd("Error\nunable to read map\n", STDERR_FILENO);
 		exit(21);
-	file_content[0] = get_next_line(fd);
-	i = 1;
-	while(file_content[i - 1])
-		file_content[i++] = get_next_line(fd);
+	}
+	i = 0;
+	file_content[i] = get_next_line(fd);
+	while(file_content[++i - 1])
+		file_content[i] = get_next_line(fd);
 	return(file_content);
 }
 
