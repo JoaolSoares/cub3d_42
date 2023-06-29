@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:20:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 21:04:25 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:03:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,13 @@ void	init_map(t_cub *cub, char *file)
 	
 	get_map(cub, file_content, i_map - cub->map->height - 1);
 
+	// pensar em tirar
+	cub->map->width = 0;
+	i_map = -1;
+	while (cub->map->map[++i_map])
+		if ((int)ft_strlen(cub->map->map[i_map]) > cub->map->width)
+			cub->map->width = ft_strlen(cub->map->map[i_map]);
+	// pensar em tirar
+
 	ft_freemtx(file_content);
 }
-
-	// PRINT
-	// int i = -1;
-	// while (cub->map->textures[++i])
-	// 	ft_printf("tx[%i] = %s\n", i, cub->map->textures[i]);
-	// i = -1;
-	// while (cub->map->map[++i])
-	// 	ft_printf("map[%i] = |%s|\n", i, cub->map->map[i]);
-	// PRINT

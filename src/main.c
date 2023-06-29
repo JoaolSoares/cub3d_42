@@ -6,11 +6,20 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 20:43:24 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:08:27 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void exit_cub(t_cub *cub, int i)
+{
+	ft_freemtx(cub->map->textures);
+	ft_freemtx(cub->map->map);
+	free(cub->map);
+	free(cub);
+	exit(i);
+}
 
 static void	arg_validation(int argc, char *argv[])
 {
@@ -35,13 +44,8 @@ int	main(int argc, char *argv[])
 
 	cub = (t_cub *)malloc(sizeof(t_cub));
 	init_map(cub, argv[1]);
-	// map_validation();
+	map_validation(cub);
 
 
-	ft_freemtx(cub->map->textures);
-	ft_freemtx(cub->map->map);
-	free(cub->map);
-	free(cub);
-
-	return (0);
+	exit_cub(cub, 0);
 }

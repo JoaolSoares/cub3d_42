@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/06/27 20:45:38 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/06/27 21:25:12 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,6 +29,7 @@ LIBFT =			./lib/libft.a
 SRCS =			src/main.c					\
 				src/map/init_map.c			\
 				src/map/get_infos.c			\
+				src/map/validation.c			\
 				
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}

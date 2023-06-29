@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 20:43:19 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:53:16 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,9 +64,14 @@ typedef struct s_cub
 // init //
 void	init_map(t_cub *cub, char *file);
 
-// map_infos //
+// map //
+// init //
 int		get_textures(t_cub *cub, char **content);
 void	get_map(t_cub *cub, char **content, int i_map);
 int		line_is_empty(char *str);
+// validation //
+void	map_validation(t_cub *cub);
+// free //
+void	exit_cub(t_cub *cub, int i);
 
 #endif

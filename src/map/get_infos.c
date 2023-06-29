@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:53 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/27 21:16:04 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/06/28 21:58:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,16 +39,18 @@ int	get_textures(t_cub *cub, char **content)
 		if (texture_posi <= 5 && line_is_empty(content[i]) == FALSE)
 		{
 			temp = ft_split(content[i], ' ', 0);
-			if ((!ft_strncmp(temp[0], "NO", 3) && texture_posi == NO) ||	\
-				(!ft_strncmp(temp[0], "SO", 3) && texture_posi == SO) ||	\
-				(!ft_strncmp(temp[0], "WE", 3) && texture_posi == WE) ||	\
-				(!ft_strncmp(temp[0], "EA", 3) && texture_posi == EA) ||	\
-				(!ft_strncmp(temp[0], "F", 2) && texture_posi == F) ||		\
-				(!ft_strncmp(temp[0], "C", 2) && texture_posi == C))
-			{
-				cub->map->textures[texture_posi] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-				texture_posi++;
-			}
+			if (!ft_strncmp(temp[0], "NO", 3) && cub->map->textures[NO] == 0)
+				cub->map->textures[NO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "SO", 3) && cub->map->textures[SO] == 0)
+				cub->map->textures[SO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "WE", 3) && cub->map->textures[WE] == 0)
+				cub->map->textures[WE] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "EA", 3) && cub->map->textures[EA] == 0)
+				cub->map->textures[EA] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "F", 2) && cub->map->textures[F] == 0)
+				cub->map->textures[F] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "C", 2) && cub->map->textures[C] == 0)
+				cub->map->textures[C] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
 			else
 			{
 				ft_freemtx(temp);
@@ -59,6 +61,7 @@ int	get_textures(t_cub *cub, char **content)
 				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
 				exit(41);
 			}
+			texture_posi++;
 			ft_freemtx(temp);
 		}
 		else if (texture_posi > 5)
