@@ -41,11 +41,10 @@ int	main(int argc, char *argv[])
 	t_cub	*cub;
 
 	arg_validation(argc, argv);
-
 	cub = (t_cub *)malloc(sizeof(t_cub));
 	init_map(cub, argv[1]);
 	map_validation(cub);
-
+	init_cub(cub);
 
 	exit_cub(cub, 0);
 }

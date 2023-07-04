@@ -17,9 +17,11 @@
 # include "../lib/include/libft.h"
 # include <stdio.h>
 # include <errno.h>
-#include <sys/types.h>
-#include <sys/stat.h>
-#include <fcntl.h>
+# include <sys/types.h>
+# include <sys/stat.h>
+# include <fcntl.h>
+# include <mlx.h>
+# include <math.h>
 
 //  DEFINES  //
 
@@ -56,7 +58,13 @@ typedef struct s_cub
 {
 
 	t_map	*map;
-
+	void	*mlx;
+	void	*win;
+	void	*img;
+	char	*addr;
+	int		bits_per_pixel;
+	int		line_length;
+	int		endian;
 }	t_cub;
 
 
@@ -69,6 +77,8 @@ void	init_map(t_cub *cub, char *file);
 int		get_textures(t_cub *cub, char **content);
 void	get_map(t_cub *cub, char **content, int i_map);
 int		line_is_empty(char *str);
+void	init_cub(t_cub *cub);
+
 // validation //
 void	map_validation(t_cub *cub);
 // free //

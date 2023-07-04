@@ -12,7 +12,8 @@
 
 NAME =			cub3D
 
-FLAGS =			-Werror -Wall -Wextra
+#FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
+FLAGS =			-lmlx -lXext -lX11 -g -ggdb
 
 CC =			cc
 
@@ -30,6 +31,7 @@ SRCS =			src/main.c					\
 				src/map/init_map.c			\
 				src/map/get_infos.c			\
 				src/map/validation.c			\
+				src/init.c			\
 				
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
@@ -39,9 +41,9 @@ all: ${NAME}
 ${NAME}: ${OBJS}
 	@ echo "${YELLOW}-=- Compiling... -=-${NOCOLOR}"
 	@ make -s -C ${LIBFTPATH} 
-	@ $(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME)
+	@ $(CC) $(OBJS) $(FLAGS) $(LIBFT) -o $(NAME)
 	@ echo "${GREEN}-=- CUB3D MANDATORY SUCCESSFUL COMPILED -=-${NOCOLOR}"
-	
+
 $(OBJS_DIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
 	@ $(CC) $(INC) $(FLAGS) -c $< -o $@
