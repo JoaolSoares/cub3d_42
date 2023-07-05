@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 19:43:56 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:42:31 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,8 +54,12 @@ int	main(int argc, char *argv[])
 	cub = (t_cub *)malloc(sizeof(t_cub));
 	init_map(cub, argv[1]);
 	map_validation(cub);
+
 	init_mlx(cub);
+
 	draw(cub);
-	mlx_loop(cub->mlx->mlx);
+
+	hook_handler(cub);
+
 	exit_cub(cub, 0);
 }

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:20:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/28 21:03:09 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:07:40 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,9 @@ void	init_map(t_cub *cub, char *file)
 	file_content = get_file_content(file);
 
 	cub->map = (t_map *)malloc(sizeof(t_map));
-	cub->map->textures = ft_calloc(sizeof(char *) * 7, 7);
+	cub->map->textures = ft_calloc(sizeof(char *) * 5, 5);
+	cub->map->ceil_color = 0;
+	cub->map->floor_color = 0;
 
 	i_map = get_textures(cub, file_content);
 	

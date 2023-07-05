@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/26 21:28:53 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/28 21:58:59 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:14:59 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,30 @@ int line_is_empty(char *str)
 		i++;
 	}
 	return (TRUE);
+}
+
+static int rgb_to_hex(char *rgb) 
+{
+    int     hex;
+    char    **split_rgb;
+    int     int_rgb[3];
+
+    split_rgb = ft_split(rgb, ',', 0);
+
+    int_rgb[0] = ft_atoi(split_rgb[0]);
+    int_rgb[1] = ft_atoi(split_rgb[1]);
+    int_rgb[2] = ft_atoi(split_rgb[2]);
+    ft_freemtx(split_rgb);
+
+	// JULGAR NECESSIDADE DISSO (não quebra o codigo)
+    // if (int_rgb[0] < 0 || int_rgb[0] > 255 || 
+    //     int_rgb[1] < 0 || int_rgb[1] > 255 || 
+    //     int_rgb[2] < 0 || int_rgb[2] > 255)
+    // {
+    //     return (-1);
+    // }
+    hex = (int_rgb[0] << 16) | (int_rgb[1] << 8) | (int_rgb[2]);
+    return (hex);
 }
 
 int	get_textures(t_cub *cub, char **content)
@@ -47,10 +71,10 @@ int	get_textures(t_cub *cub, char **content)
 				cub->map->textures[WE] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
 			else if (!ft_strncmp(temp[0], "EA", 3) && cub->map->textures[EA] == 0)
 				cub->map->textures[EA] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-			else if (!ft_strncmp(temp[0], "F", 2) && cub->map->textures[F] == 0)
-				cub->map->textures[F] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-			else if (!ft_strncmp(temp[0], "C", 2) && cub->map->textures[C] == 0)
-				cub->map->textures[C] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "F", 2) && cub->map->floor_color == 0)
+				cub->map->floor_color = rgb_to_hex(temp[1]);
+			else if (!ft_strncmp(temp[0], "C", 2) && cub->map->ceil_color == 0)
+				cub->map->ceil_color = rgb_to_hex(temp[1]);
 			else
 			{
 				ft_freemtx(temp);

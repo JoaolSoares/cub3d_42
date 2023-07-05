@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 21:04:58 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/04 22:03:42 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@
 # include <sys/stat.h>
 # include <fcntl.h>
 # include <mlx.h>
-# include <math.h>
 # include <X11/keysym.h>
 # include <X11/X.h>
+# include <math.h>
 
 //  DEFINES  //
 
@@ -35,8 +35,6 @@ typedef enum s_tx
 	SO,
 	WE,
 	EA,
-	F,
-	C,
 
 }	t_tx;
 
@@ -53,6 +51,9 @@ typedef struct s_map
 	int			height;
 	int			width;
 	char		**textures;
+	int			floor_color;
+	int			ceil_color;
+
 }	t_map;
 
 typedef struct s_mlx
@@ -76,25 +77,28 @@ typedef struct s_cub
 }	t_cub;
 
 
-//  FUNCTIONS  //
-// init //
+//	FUNCTIONS	//
+//-------------- MAP --------------//
+// Init //
 void	init_map(t_cub *cub, char *file);
 void	init_mlx(t_cub *cub);
+int		line_is_empty(char *str);
 
-// map //
+// Get //
 int		get_textures(t_cub *cub, char **content);
 void	get_map(t_cub *cub, char **content, int i_map);
 
-// utils //
-int		line_is_empty(char *str);
-
-// validation //
+// Validation //
 void	map_validation(t_cub *cub);
 
-// draw //
-void draw(t_cub *cub);
+//-------------- MLX --------------//
+// Draw //
+void	draw(t_cub *cub);
 
-// free //
+// Hooks //
+void	hook_handler(t_cub *cub);
+
+// Free //
 void	exit_cub(t_cub *cub, int i);
 
 #endif

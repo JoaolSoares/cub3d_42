@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+         #
+#    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/07/04 19:11:47 by dofranci         ###   ########.fr        #
+#    Updated: 2023/07/04 21:55:31 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,7 +31,9 @@ SRCS =			src/main.c					\
 				src/map/init_map.c			\
 				src/map/get_infos.c			\
 				src/map/validation.c		\
-				src/init.c					\
+				src/mlx/init_mlx.c			\
+				src/mlx/draw.c				\
+				src/mlx/hooks.c				\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
@@ -60,8 +62,5 @@ re: fclean all
 
 run: ${NAME}
 	@./$(NAME)
-
-valgrind: ${NAME}
-	valgrind --leak-check=full --suppressions=readline.supp --show-leak-kinds=all --track-origins=yes ./$(NAME)
 
 .PHONY: all clean fclean run valgrind
