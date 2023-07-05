@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 22:03:42 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/05 19:18:24 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,20 @@
 # include <math.h>
 
 //  DEFINES  //
+//	Window
+# define WIN_WIDTH	800
+# define WIN_HEIGHT 600
+//	Keys
+# define ESC_KEY	65307
+# define W_KEY		119
+# define A_KEY		97
+# define S_KEY		115
+# define D_KEY		100
+# define LEFT_KEY	65363
+# define RIGHT_KEY	65361
+# define UP_KEY		65364
+# define DOWN_KEY	65362
+
 
 
 //  STRUCTS  //
@@ -47,12 +61,14 @@ typedef enum s_bool
 
 typedef struct s_map
 {
-	char		**map;
-	int			height;
-	int			width;
-	char		**textures;
-	int			floor_color;
-	int			ceil_color;
+	char	**map;
+	int		height;
+	int		width;
+	char	**textures;
+	int		floor_color;
+	int		ceil_color;
+	int		player_x;
+	int		player_y;
 
 }	t_map;
 
@@ -70,7 +86,6 @@ typedef struct s_mlx
 
 typedef struct s_cub
 {
-
 	t_map	*map;
 	t_mlx	*mlx;
 
@@ -79,26 +94,26 @@ typedef struct s_cub
 
 //	FUNCTIONS	//
 //-------------- MAP --------------//
-// Init //
+// Init
 void	init_map(t_cub *cub, char *file);
 void	init_mlx(t_cub *cub);
 int		line_is_empty(char *str);
 
-// Get //
+// Get
 int		get_textures(t_cub *cub, char **content);
 void	get_map(t_cub *cub, char **content, int i_map);
 
-// Validation //
+// Validation
 void	map_validation(t_cub *cub);
 
 //-------------- MLX --------------//
-// Draw //
+// Draw
 void	draw(t_cub *cub);
 
-// Hooks //
+// Hooks
 void	hook_handler(t_cub *cub);
 
-// Free //
+// Free
 void	exit_cub(t_cub *cub, int i);
 
 #endif

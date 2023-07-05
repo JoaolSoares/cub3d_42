@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/21 19:20:29 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 22:07:40 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/05 18:55:39 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	init_map(t_cub *cub, char *file)
 		cub->map->height++;
 
 	cub->map->map = ft_calloc(sizeof(char *) * cub->map->height + 1, cub->map->height + 1);
-	
+
 	get_map(cub, file_content, i_map - cub->map->height - 1);
 
 	// pensar em tirar
