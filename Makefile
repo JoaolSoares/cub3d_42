@@ -3,17 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/06/27 21:25:12 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/07/04 19:11:47 by dofranci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			cub3D
 
-#FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
-FLAGS =			-lmlx -lXext -lX11 -g -ggdb
+FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
+#FLAGS =			-lmlx -lXext -lX11 -g -ggdb
 
 CC =			cc
 
@@ -30,9 +30,9 @@ LIBFT =			./lib/libft.a
 SRCS =			src/main.c					\
 				src/map/init_map.c			\
 				src/map/get_infos.c			\
-				src/map/validation.c			\
-				src/init.c			\
-				
+				src/map/validation.c		\
+				src/init.c					\
+
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}
 

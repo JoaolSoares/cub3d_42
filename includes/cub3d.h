@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/28 21:53:16 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/04 21:04:58 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include <fcntl.h>
 # include <mlx.h>
 # include <math.h>
+# include <X11/keysym.h>
+# include <X11/X.h>
 
 //  DEFINES  //
 
@@ -51,13 +53,10 @@ typedef struct s_map
 	int			height;
 	int			width;
 	char		**textures;
-
 }	t_map;
 
-typedef struct s_cub
+typedef struct s_mlx
 {
-
-	t_map	*map;
 	void	*mlx;
 	void	*win;
 	void	*img;
@@ -65,22 +64,36 @@ typedef struct s_cub
 	int		bits_per_pixel;
 	int		line_length;
 	int		endian;
+
+}	t_mlx;
+
+typedef struct s_cub
+{
+
+	t_map	*map;
+	t_mlx	*mlx;
+
 }	t_cub;
 
 
 //  FUNCTIONS  //
 // init //
 void	init_map(t_cub *cub, char *file);
+void	init_mlx(t_cub *cub);
 
 // map //
-// init //
 int		get_textures(t_cub *cub, char **content);
 void	get_map(t_cub *cub, char **content, int i_map);
+
+// utils //
 int		line_is_empty(char *str);
-void	init_cub(t_cub *cub);
 
 // validation //
 void	map_validation(t_cub *cub);
+
+// draw //
+void draw(t_cub *cub);
+
 // free //
 void	exit_cub(t_cub *cub, int i);
 
