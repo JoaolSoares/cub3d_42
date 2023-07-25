@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 10:39:31 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:15:42 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,26 +28,26 @@ static void	pixel_put(t_cub *cub, int x, int y, int color)
 	*(unsigned int*)dst = color;
 }
 
-// static void floor_and_ceiling(t_cub *cub)
-// {
-//     int x;
-//     int y;
+void floor_and_ceiling(t_cub *cub)
+{
+    int x;
+    int y;
 
-//     x = 0;
-//     while(x++ < 800)
-//     {
-//       y = 0;
-//       while(y++ < 300)
-//         pixel_put(cub, x, y, cub->map->ceil_color);
-//     }
-//     x = 0;
-//     while(x++ < 800)
-//     {
-//       y = 300;
-//       while(y++ < 600)
-//         pixel_put(cub, x, y, cub->map->floor_color);
-//     }
-// }
+    x = 0;
+    while(x++ < 800)
+    {
+      y = 0;
+      while(y++ < 300)
+        pixel_put(cub, x, y, cub->map->ceil_color);
+    }
+    x = 0;
+    while(x++ < 800)
+    {
+      y = 300;
+      while(y++ < 600)
+        pixel_put(cub, x, y, cub->map->floor_color);
+    }
+}
 
 // static void set_data(t_map *map)
 // { 
@@ -65,10 +65,10 @@ void draw_player(t_cub *cub, int posx, int posy)
     int y;
 
     x = posx;
-    while(x++ < (posx + 10))
+    while(x++ < (posx + 4))
     {
       y = posy;
-      while(y++ < (posy + 10))
+      while(y++ < (posy + 4))
       {
         pixel_put(cub, x, y, 0x008000);
       }
@@ -82,7 +82,7 @@ void draw_square(t_cub *cub, int x, int y, int size)
     int color; 
 
     color = 0xFFFFFF;
-    if(size != 16)
+    if(size != 8)
       color = 0x008000;
     tempy = y;
     tempx = x;
@@ -109,14 +109,12 @@ void draw_map(t_cub *cub, int opt)
       while(cub->map->map[line->y][line->x])
       {
         if(cub->map->map[line->y][line->x] == '1')
-        {
-          draw_square(cub, (line->x * 16), (line->y * 16), 16);
-        }
+          draw_square(cub, (line->x * 8), (line->y * 8), 8);
         else if(cub->map->map[line->y][line->x] != '1' && cub->map->map[line->y][line->x] != '0' && cub->map->map[line->y][line->x] != ' ' && opt == 0)
         {
-              cub->posx = (line->x * 16);
-              cub->posy = (line->y * 16);
-              draw_square(cub, cub->posx, cub->posy, 10);
+              cub->posx = (line->x * 8);
+              cub->posy = (line->y * 8);
+              draw_square(cub, cub->posx, cub->posy, 3);
         }
         line->x++;
       }
@@ -127,17 +125,13 @@ void draw_map(t_cub *cub, int opt)
 
 void draw(t_cub *cub)
 {
+    // set_data(cub->map);
     cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
     cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
+    floor_and_ceiling(cub);
     draw_map(cub, 0);
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
     mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
-    // draw_player(cub, cub->posx, cub->posy);
-    // draw_player(cub, cub->posx, cub->posy);
-    
-    // draw_map(cub);
-    //floor_and_ceiling(cub);
-    // set_data(cub->map);
     // while(1)
     // {      
     //   x = 0;

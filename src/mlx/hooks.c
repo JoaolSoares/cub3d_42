@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 10:22:12 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 11:12:51 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ int	key_hook(int keycode, t_cub *cub)
     // mlx_clear_window(cub->mlx->mlx, cub->mlx->win);
     cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
     cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
+    floor_and_ceiling(cub);
     draw_player(cub, cub->posx, cub->posy);
     draw_map(cub, 1);
 	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
