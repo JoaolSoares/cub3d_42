@@ -17,11 +17,9 @@ void init_mlx(t_cub *cub)
     cub->mlx = malloc(sizeof(t_mlx));
     cub->mlx->mlx = mlx_init();
     cub->mlx->win = mlx_new_window(cub->mlx->mlx, 800, 600, "CUB3D");
-    cub->mlx->img = mlx_new_image(cub->mlx->mlx, 800, 600);
-    if (cub->mlx->mlx == NULL || cub->mlx->win == NULL || cub->mlx->img == NULL)
+    if (cub->mlx->mlx == NULL || cub->mlx->win == NULL)
     {
         exit_cub(cub, 81);
         // exit(120) ; //  dar free antes do exit
     }
-    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
 }

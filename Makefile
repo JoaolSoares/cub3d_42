@@ -13,6 +13,7 @@
 NAME =			cub3D
 
 FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
+
 #FLAGS =			-lmlx -lXext -lX11 -g -ggdb
 
 CC =			cc

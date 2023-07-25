@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 21:42:31 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/21 11:26:11 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,6 @@ void exit_cub(t_cub *cub, int i)
 {
 	if(i != 51)
 	{
-		mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
 		mlx_destroy_window(cub->mlx->mlx, cub->mlx->win);
 		mlx_destroy_display(cub->mlx->mlx);
 		mlx_loop_end(cub->mlx->mlx);
@@ -60,6 +59,5 @@ int	main(int argc, char *argv[])
 	draw(cub);
 
 	hook_handler(cub);
-
 	exit_cub(cub, 0);
 }

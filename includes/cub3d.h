@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/05 19:18:24 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/24 20:10:23 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,15 @@ typedef enum s_bool
 
 }	t_bool;
 
+typedef struct s_linepoint
+{
+	int x;
+	int y;
+	int xo;
+	int yo;
+
+}	t_linepoint;
+
 typedef struct s_map
 {
 	char	**map;
@@ -69,6 +78,17 @@ typedef struct s_map
 	int		ceil_color;
 	int		player_x;
 	int		player_y;
+	// double	dirX; 
+	// double	dirY;
+    // double	planeX;
+	// double	planeY;
+    // double	time;
+    // double	oldTime;
+	// double	cameraX;
+	// double	rayDirX;
+	// double	rayDirY;
+	// double	deltaDistX;
+	// double	deltaDistY;
 
 }	t_map;
 
@@ -88,7 +108,8 @@ typedef struct s_cub
 {
 	t_map	*map;
 	t_mlx	*mlx;
-
+	int posx;
+    int posy;
 }	t_cub;
 
 
@@ -109,6 +130,8 @@ void	map_validation(t_cub *cub);
 //-------------- MLX --------------//
 // Draw
 void	draw(t_cub *cub);
+void draw_player(t_cub *cub, int posx, int posy);
+void draw_map(t_cub *cub);
 
 // Hooks
 void	hook_handler(t_cub *cub);
