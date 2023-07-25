@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/24 20:10:23 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:04:58 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,7 +131,8 @@ void	map_validation(t_cub *cub);
 // Draw
 void	draw(t_cub *cub);
 void draw_player(t_cub *cub, int posx, int posy);
-void draw_map(t_cub *cub);
+void draw_map(t_cub *cub, int opt);
+void draw_square(t_cub *cub, int x, int y, int size);
 
 // Hooks
 void	hook_handler(t_cub *cub);

@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/24 21:19:08 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:39:31 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,34 +70,34 @@ void draw_player(t_cub *cub, int posx, int posy)
       y = posy;
       while(y++ < (posy + 10))
       {
-        pixel_put(cub, x, y, 0xFFFFFF);
+        pixel_put(cub, x, y, 0x008000);
       }
     }
-    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
-    mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
 }
 
-void draw_square1(t_cub *cub, int x, int y)
+void draw_square(t_cub *cub, int x, int y, int size)
 {
     int tempy;
     int tempx;
+    int color; 
 
+    color = 0xFFFFFF;
+    if(size != 16)
+      color = 0x008000;
     tempy = y;
     tempx = x;
-    while(x++ < (tempx + 32))
+    while(x++ < (tempx + size))
     {
       y = tempy;
-      while(y++ < (tempy + 32))
-        pixel_put(cub, x, y, 0xFFFFFF);
+      while(y++ < (tempy + size))
+        pixel_put(cub, x, y, color);
     }
 }
 
-void draw_map(t_cub *cub)
+void draw_map(t_cub *cub, int opt)
 {
     t_linepoint *line;
 
-    cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
-    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
     line = malloc(sizeof (t_linepoint));
     line->y = 0;
     line->x = 0;
@@ -109,23 +109,31 @@ void draw_map(t_cub *cub)
       while(cub->map->map[line->y][line->x])
       {
         if(cub->map->map[line->y][line->x] == '1')
-          draw_square1(cub, (line->x * 32), (line->y * 32));
-        // else
-        //   draw_square1(cub, (line->x * 32), (line->y * 32));
+        {
+          draw_square(cub, (line->x * 16), (line->y * 16), 16);
+        }
+        else if(cub->map->map[line->y][line->x] != '1' && cub->map->map[line->y][line->x] != '0' && cub->map->map[line->y][line->x] != ' ' && opt == 0)
+        {
+              cub->posx = (line->x * 16);
+              cub->posy = (line->y * 16);
+              draw_square(cub, cub->posx, cub->posy, 10);
+        }
         line->x++;
       }
       line->y++;
     }
+    free(line);
 }
 
 void draw(t_cub *cub)
 {
-    
-    
-    cub->posx = 300;
-    cub->posy = 300;
-    draw_map(cub);
-    draw_player(cub, cub->posx, cub->posy);
+    cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
+    draw_map(cub, 0);
+    mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
+    mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
+    // draw_player(cub, cub->posx, cub->posy);
+    // draw_player(cub, cub->posx, cub->posy);
     
     // draw_map(cub);
     //floor_and_ceiling(cub);

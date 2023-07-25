@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/24 20:53:47 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 10:22:12 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,9 +69,14 @@ int	key_hook(int keycode, t_cub *cub)
     {
         cub->posx += 5;
     }
-    draw_map(cub);
+    // mlx_clear_window(cub->mlx->mlx, cub->mlx->win);
+    cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
     draw_player(cub, cub->posx, cub->posy);
-	return (0);
+    draw_map(cub, 1);
+	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
+    mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
+    return (0);
 }
 
 static int	x_hook(t_cub *cub)
