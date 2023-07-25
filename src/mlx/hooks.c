@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 11:12:51 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:34:12 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,28 +55,23 @@ int	key_hook(int keycode, t_cub *cub)
 		exit_cub(cub, 0);
 	else if (keycode == W_KEY)
     {
-        cub->posy -= 5;
+        cub->player->posy -= 5;
     }
     else if (keycode == A_KEY)
     {
-        cub->posx -= 5;
+        cub->player->posx -= 5;
     }
 	else if (keycode == S_KEY)
     {
-        cub->posy += 5;
+        cub->player->posy += 5;
     }
 	else if (keycode == D_KEY)
     {
-        cub->posx += 5;
+        cub->player->posx += 5;
     }
-    // mlx_clear_window(cub->mlx->mlx, cub->mlx->win);
     cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
     cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
-    floor_and_ceiling(cub);
-    draw_player(cub, cub->posx, cub->posy);
-    draw_map(cub, 1);
-	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
-    mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
+    draw(cub);
     return (0);
 }
 

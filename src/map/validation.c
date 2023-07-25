@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   validation.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 21:22:23 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/05 19:09:54 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:58:28 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void map_validation(t_cub *cub)
 				{
 					if (cub->map->player_x != 0 && cub->map->player_y != 0)
 						exit_cub(cub, 51);
-					cub->map->player_x = x;
-					cub->map->player_y = y;
+					cub->map->player_x = y;
+					cub->map->player_y = x;
 				}
             	is_scapable(cub, x, y);
 			}

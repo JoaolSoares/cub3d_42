@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 11:15:42 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:00:51 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,32 +49,6 @@ void floor_and_ceiling(t_cub *cub)
     }
 }
 
-// static void set_data(t_map *map)
-// { 
-//   map->dirX = -1;
-//   map->dirY = 0; 
-//   map->planeX = 0; 
-//   map->planeY = 0.66; 
-//   map->time = 0; 
-//   map->oldTime = 0; 
-// }
-
-void draw_player(t_cub *cub, int posx, int posy)
-{
-    int x;
-    int y;
-
-    x = posx;
-    while(x++ < (posx + 4))
-    {
-      y = posy;
-      while(y++ < (posy + 4))
-      {
-        pixel_put(cub, x, y, 0x008000);
-      }
-    }
-}
-
 void draw_square(t_cub *cub, int x, int y, int size)
 {
     int tempy;
@@ -82,7 +56,7 @@ void draw_square(t_cub *cub, int x, int y, int size)
     int color; 
 
     color = 0xFFFFFF;
-    if(size != 8)
+    if(size != 16)
       color = 0x008000;
     tempy = y;
     tempx = x;
@@ -94,57 +68,48 @@ void draw_square(t_cub *cub, int x, int y, int size)
     }
 }
 
-void draw_map(t_cub *cub, int opt)
+void draw_map(t_cub *cub)
 {
-    t_linepoint *line;
-
-    line = malloc(sizeof (t_linepoint));
-    line->y = 0;
-    line->x = 0;
-    line->yo = 0;
-    line->xo = 0;
-    while(cub->map->map[line->y])
+    int x;
+    int y;
+    
+    x = 0;
+    y = 0;
+    while(cub->map->map[y])
     {
-      line->x = 0;
-      while(cub->map->map[line->y][line->x])
+      x = 0;
+      while(cub->map->map[y][x])
       {
-        if(cub->map->map[line->y][line->x] == '1')
-          draw_square(cub, (line->x * 8), (line->y * 8), 8);
-        else if(cub->map->map[line->y][line->x] != '1' && cub->map->map[line->y][line->x] != '0' && cub->map->map[line->y][line->x] != ' ' && opt == 0)
-        {
-              cub->posx = (line->x * 8);
-              cub->posy = (line->y * 8);
-              draw_square(cub, cub->posx, cub->posy, 3);
-        }
-        line->x++;
+        if(cub->map->map[y][x] == '1')
+          draw_square(cub, (x * 16), (y * 16), 16);
+        x++;
       }
-      line->y++;
+      y++;
     }
-    free(line);
 }
 
 void draw(t_cub *cub)
 {
-    // set_data(cub->map);
-    cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
-    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
-    floor_and_ceiling(cub);
-    draw_map(cub, 0);
+   // floor_and_ceiling(cub);
+    draw_map(cub);
+    draw_square(cub, cub->player->posx, cub->player->posy, 8); // player
     mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
     mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
+
+    // int x;
     // while(1)
     // {      
-    //   x = 0;
-    //   while(x++ < WIN_WIDTH)
+    //   x = -1;
+    //   while(++x < WIN_WIDTH)
     //   {
-    //     cub->map->cameraX = 2 * (x / (double)WIN_WIDTH - 1);
-    //     cub->map->rayDirX = cub->map->dirX + cub->map->planeX * cub->map->cameraX;
-    //     cub->map->rayDirY = cub->map->dirY + cub->map->planeY * cub->map->cameraX;
+    //     cub->player->cameraX = 2 * (x / (double)WIN_WIDTH - 1);
+    //     cub->player->rayDirX = cub->player->dirX + cub->player->planeX * cub->player->cameraX;
+    //     cub->player->rayDirY = cub->player->dirY + cub->player->planeY * cub->player->cameraX;
         
-    //     cub->map->deltaDistX = sqrt(1 + (cub->map->rayDirY * cub->map->rayDirY) / (cub->map->rayDirX * cub->map->rayDirX));
-    //     cub->map->deltaDistY = sqrt(1 + (cub->map->rayDirX * cub->map->rayDirX) / (cub->map->rayDirY * cub->map->rayDirY));
-    //     int mapPos[1];
-    //     mapPos[0] = floor();
+    //     cub->player->deltaDistX = sqrt(1 + (cub->player->rayDirY * cub->player->rayDirY) / (cub->player->rayDirX * cub->player->rayDirX));
+    //     cub->player->deltaDistY = sqrt(1 + (cub->player->rayDirX * cub->player->rayDirX) / (cub->player->rayDirY * cub->player->rayDirY));
+    //     int playerPos[1];
+    //     playerPos[0] = floor();
     //   }
     // }
     

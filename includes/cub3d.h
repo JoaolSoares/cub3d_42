@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 11:12:38 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 16:30:25 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,19 +78,26 @@ typedef struct s_map
 	int		ceil_color;
 	int		player_x;
 	int		player_y;
-	// double	dirX; 
-	// double	dirY;
-    // double	planeX;
-	// double	planeY;
-    // double	time;
-    // double	oldTime;
-	// double	cameraX;
-	// double	rayDirX;
-	// double	rayDirY;
-	// double	deltaDistX;
-	// double	deltaDistY;
 
 }	t_map;
+
+typedef struct s_player
+{
+	double	dirX; 
+	double	dirY;
+    double	planeX;
+	double	planeY;
+    double	time;
+    double	oldTime;
+	double	cameraX;
+	double	rayDirX;
+	double	rayDirY;
+	double	deltaDistX;
+	double	deltaDistY;
+	int 	posx;
+    int		posy;
+	
+} t_player; 
 
 typedef struct s_mlx
 {
@@ -106,10 +113,9 @@ typedef struct s_mlx
 
 typedef struct s_cub
 {
-	t_map	*map;
-	t_mlx	*mlx;
-	int posx;
-    int posy;
+	t_map		*map;
+	t_mlx		*mlx;
+	t_player	*player;
 }	t_cub;
 
 
@@ -130,10 +136,9 @@ void	map_validation(t_cub *cub);
 //-------------- MLX --------------//
 // Draw
 void	draw(t_cub *cub);
-void draw_player(t_cub *cub, int posx, int posy);
-void draw_map(t_cub *cub, int opt);
-void draw_square(t_cub *cub, int x, int y, int size);
-void floor_and_ceiling(t_cub *cub);
+void	draw_map(t_cub *cub);
+void	draw_square(t_cub *cub, int x, int y, int size);
+void	floor_and_ceiling(t_cub *cub);
 
 // Hooks
 void	hook_handler(t_cub *cub);

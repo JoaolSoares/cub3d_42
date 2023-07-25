@@ -6,7 +6,7 @@
 /*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/21 11:26:11 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/25 17:00:36 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,10 +24,26 @@ void exit_cub(t_cub *cub, int i)
 	}
 	ft_freemtx(cub->map->textures);
 	ft_freemtx(cub->map->map);
+	free(cub->player);
 	free(cub->map);
 	free(cub);
 
 	exit(i);
+}
+
+static void set_data(t_cub *cub)
+{ 
+  cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+  cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
+  cub->player = malloc(sizeof(t_player));
+  cub->player->posx = (cub->map->player_x * 16);
+  cub->player->posy = (cub->map->player_y * 16);
+  // cub->player->dirX = -1;
+  // cub->player->dirY = 0; 
+  // cub->player->planeX = 0; 
+  // cub->player->planeY = 0.66; 
+  // cub->player->time = 0; 
+  // cub->player->oldTime = 0; 
 }
 
 static void	arg_validation(int argc, char *argv[])
@@ -55,7 +71,7 @@ int	main(int argc, char *argv[])
 	map_validation(cub);
 
 	init_mlx(cub);
-
+	set_data(cub);
 	draw(cub);
 
 	hook_handler(cub);
