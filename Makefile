@@ -6,13 +6,13 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/07/04 21:55:31 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/07/27 19:44:18 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			cub3D
 
-FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
+FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb -lm
 
 #FLAGS =			-lmlx -lXext -lX11 -g -ggdb
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 16:34:12 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:42:17 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,19 +55,39 @@ int	key_hook(int keycode, t_cub *cub)
 		exit_cub(cub, 0);
 	else if (keycode == W_KEY)
     {
-        cub->player->posy -= 5;
+        cub->player->posx += cub->player->deltaPosX;
+        cub->player->posy += cub->player->deltaPosY;
     }
-    else if (keycode == A_KEY)
-    {
-        cub->player->posx -= 5;
-    }
+    // else if (keycode == A_KEY)
+    // {
+    //     cub->player->posx += cub->player->deltaPosX;
+    //     // cub->player->posy -= cub->player->deltaPosY;
+    // }
 	else if (keycode == S_KEY)
     {
-        cub->player->posy += 5;
+        cub->player->posx -= cub->player->deltaPosX;
+        cub->player->posy -= cub->player->deltaPosY;
     }
 	else if (keycode == D_KEY)
     {
-        cub->player->posx += 5;
+        // cub->player->posx -= cub->player->deltaPosX;
+        // cub->player->posy += cub->player->deltaPosX;
+    }
+    else if (keycode == LEFT_KEY )
+    {
+        cub->player->deltaPosA -= 0.25;
+        if (cub->player->deltaPosA < 0)
+            cub->player->deltaPosA += 2 * PI;
+        cub->player->deltaPosX = cos(cub->player->deltaPosA) * 5;
+        cub->player->deltaPosY = sin(cub->player->deltaPosA) * 5;
+    }
+    else if (keycode == RIGHT_KEY)
+    {
+        cub->player->deltaPosA += 0.25;
+        if (cub->player->deltaPosA > 2 * PI)
+            cub->player->deltaPosA -= 2 * PI;
+        cub->player->deltaPosX = cos(cub->player->deltaPosA) * 5;
+        cub->player->deltaPosY = sin(cub->player->deltaPosA) * 5;
     }
     cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
     cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);

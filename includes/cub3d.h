@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/25 16:30:25 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/07/27 20:34:36 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,12 +35,9 @@
 # define A_KEY		97
 # define S_KEY		115
 # define D_KEY		100
-# define LEFT_KEY	65363
-# define RIGHT_KEY	65361
-# define UP_KEY		65364
-# define DOWN_KEY	65362
-
-
+# define LEFT_KEY	65361
+# define RIGHT_KEY	65363
+# define PI			3.141592653589793
 
 //  STRUCTS  //
 typedef enum s_tx
@@ -94,8 +91,11 @@ typedef struct s_player
 	double	rayDirY;
 	double	deltaDistX;
 	double	deltaDistY;
-	int 	posx;
-    int		posy;
+	double 	posx;
+    double	posy;
+	double	deltaPosX;
+	double	deltaPosY;
+	double	deltaPosA;
 	
 } t_player; 
 
