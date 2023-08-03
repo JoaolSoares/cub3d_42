@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:57:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/02 22:29:34 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:20:42 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,6 +42,8 @@ void	init_player(t_cub *cub)
 	// Pos
 	cub->player->posx = (double)cub->map->player_x;
 	cub->player->posy = (double)cub->map->player_y;
+	// cub->player->posx = 5;
+	// cub->player->posy = 5;
 	// dir
 	cub->player->dirX = 0;
 	cub->player->dirY = -1; 

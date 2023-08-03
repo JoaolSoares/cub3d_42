@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/03 00:48:09 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:27:50 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,6 +90,7 @@ void draw_map(t_cub *cub)
 
 # define _X_ 0
 # define _Y_ 1
+
 void draw(t_cub *cub)
 {
 	int		pixel;
@@ -102,12 +103,17 @@ void draw(t_cub *cub)
 	double	distToSide[2];
 	double	step[2];
 	int		hit;
-	int		hitSize;
+	int		hitSide;
 	double	ddaLineSize[2];
 	double	wallMapPos[2];
+	double	perpendicularDist;
+	double	wallLineHeight;
+	double	lineStartY;
+	double	lineEndY;
 
 	floor_and_ceiling(cub);
 	pixel = 0;
+
 	while (pixel < WIN_WIDTH)
 	{
 		multiplier			= 2 * (pixel / WIN_WIDTH) - 1;
@@ -118,34 +124,56 @@ void draw(t_cub *cub)
 		rayDir[_X_]			= cub->player->dirX + cameraPixel[_X_];
 		rayDir[_Y_]			= cub->player->dirY + cameraPixel[_Y_];
 		
-		mag					= sqrt(pow(10, 2) + pow(6, 2));
-		deltaDist[_X_]		= abs(mag / rayDir[_X_]);
-		deltaDist[_Y_]		= abs(mag / rayDir[_Y_]);
+		// mag					= sqrt(pow(rayDir[_X_], 2) + pow(rayDir[_Y_], 2));
+		// deltaDist[_X_]		= abs(1 / rayDir[_X_]);
+		// deltaDist[_Y_]		= abs(1 / rayDir[_Y_]);
+		if (rayDir[_X_] == 0)
+		{
+			deltaDist[_X_]	= 1;
+			deltaDist[_Y_]	= 0;
+		}
+		else
+		{
+			if (rayDir[_Y_] != 0)
+				deltaDist[_X_]	= abs(1 / rayDir[_X_]);
+		}
+		
+		if (rayDir[_Y_] == 0)
+		{
+			deltaDist[_Y_]	= 1;
+			deltaDist[_X_]	= 0;
+		}
+		else
+		{
+			if (rayDir[_X_] != 0)
+				deltaDist[_Y_]	= abs(1 / rayDir[_Y_]);
+		}
+
 
 		mapPos[_X_]			= floor(cub->player->posx);
 		mapPos[_Y_]			= floor(cub->player->posy);
 
-
+		
 		if (rayDir[_X_] < 0)
 		{
-			distToSide[_X_]	= (cub->player->posx - mapPos[_X_]) * deltaDist[_X_];
-			step[_X_]		= -1;
+			distToSide[_X_]		= (cub->player->posx - mapPos[_X_]) * deltaDist[_X_];
+			step[_X_]			= -1;
 		}
 		else
 		{
-			distToSide[_X_]	= (mapPos[_X_] + 1 - cub->player->posx) * deltaDist[_X_];
-			step[_X_]		= 1;
+			distToSide[_X_]		= (mapPos[_X_] + 1 - cub->player->posx) * deltaDist[_X_];
+			step[_X_]			= 1;
 		}
 
 		if (rayDir[_Y_] < 0)
 		{
-			distToSide[_Y_]	= (cub->player->posy - mapPos[_Y_]) * deltaDist[_Y_];
-			step[_Y_]		= -1;
+			distToSide[_Y_	]	= (cub->player->posy - mapPos[_Y_]) * deltaDist[_Y_];
+			step[_Y_]			= -1;
 		}
 		else
 		{
-			distToSide[_Y_]	= (mapPos[_Y_] + 1 - cub->player->posy) * deltaDist[_Y_];
-			step[_Y_]		= 1;
+			distToSide[_Y_]		= (mapPos[_Y_] + 1 - cub->player->posy) * deltaDist[_Y_];
+			step[_Y_]			= 1;
 		}
 	
 
@@ -162,19 +190,38 @@ void draw(t_cub *cub)
 			{
 				wallMapPos[_X_]		+= step[_X_];
 				ddaLineSize[_X_]	+= deltaDist[_X_];
-				hitSize				= 0;
+				hitSide				= _X_;
 			}
 			else
 			{
 				wallMapPos[_Y_]		+= step[_Y_];
 				ddaLineSize[_Y_]	+= deltaDist[_Y_];
-				hitSize				= 1;
+				hitSide				= _Y_;
 			}
 			if (cub->map->map[(int)wallMapPos[_X_]][(int)wallMapPos[_Y_]] > 0)
-				hit = TRUE;
+				hit					= TRUE;
 		}
 
+		if (hitSide == _X_)
+		{
+			perpendicularDist = abs(wallMapPos[_X_] - cub->player->posx + ((1 - step[_X_] / 2))) / rayDir[_X_];
+		}
+		else
+		{
+			perpendicularDist = abs(wallMapPos[_Y_] - cub->player->posy + ((1 - step[_Y_] / 2))) / rayDir[_Y_];
+		}
 
+		wallLineHeight	= WIN_HEIGHT / perpendicularDist;
+		lineStartY		= WIN_HEIGHT / 2 - wallLineHeight / 2;
+		lineEndY		= WIN_HEIGHT / 2 + wallLineHeight / 2;
+
+		printf("perpendicular = %f\n", perpendicularDist);
+		printf("wallheight    = %f\n", wallLineHeight);
+		printf("lineStart     = %f\n", lineStartY);
+		printf("lineEnd       = %f\n", lineEndY);
+		break;
+		pixel_put(cub, pixel, (int)lineStartY, 0xFF0000);
+		pixel_put(cub, pixel, (int)lineEndY, 0xFF0000);
 
 		pixel++;
 	}
