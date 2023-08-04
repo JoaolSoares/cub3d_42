@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 21:22:23 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/05 19:09:54 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/03 14:40:25 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,8 +49,8 @@ void map_validation(t_cub *cub)
 				{
 					if (cub->map->player_x != 0 && cub->map->player_y != 0)
 						exit_cub(cub, 51);
-					cub->map->player_x = x;
-					cub->map->player_y = y;
+					cub->map->player_x = y;
+					cub->map->player_y = x;
 				}
             	is_scapable(cub, x, y);
 			}

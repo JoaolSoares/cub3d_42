@@ -1,5 +1,6 @@
 NAME = libft.a
 
+
 GREEN =				\033[1;32m
 RED =				\033[1;31m 
 NOCOLOR	=			\033[0m

@@ -6,30 +6,11 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 21:42:31 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/02 22:12:03 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-void exit_cub(t_cub *cub, int i)
-{
-	if(i != 51)
-	{
-		mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
-		mlx_destroy_window(cub->mlx->mlx, cub->mlx->win);
-		mlx_destroy_display(cub->mlx->mlx);
-		mlx_loop_end(cub->mlx->mlx);
-		free(cub->mlx->mlx);
-		free(cub->mlx);
-	}
-	ft_freemtx(cub->map->textures);
-	ft_freemtx(cub->map->map);
-	free(cub->map);
-	free(cub);
-
-	exit(i);
-}
 
 static void	arg_validation(int argc, char *argv[])
 {
@@ -56,10 +37,9 @@ int	main(int argc, char *argv[])
 	map_validation(cub);
 
 	init_mlx(cub);
-
+	init_player(cub);
 	draw(cub);
 
 	hook_handler(cub);
-
 	exit_cub(cub, 0);
 }

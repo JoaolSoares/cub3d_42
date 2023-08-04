@@ -6,14 +6,15 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/07/04 21:55:31 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/08/03 00:16:39 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =			cub3D
+NAME =			cub3d
 
-FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -g -ggdb
-#FLAGS =			-lmlx -lXext -lX11 -g -ggdb
+# FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -lm -g -ggdb 
+
+FLAGS =			-lmlx -lXext -lX11 -lm -g -ggdb
 
 CC =			cc
 
@@ -28,6 +29,7 @@ LIBFTPATH =		./lib
 LIBFT =			./lib/libft.a
 
 SRCS =			src/main.c					\
+				src/allocs.c				\
 				src/map/init_map.c			\
 				src/map/get_infos.c			\
 				src/map/validation.c		\
