@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:57:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/04 16:55:57 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:17:03 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,32 +26,50 @@ void	exit_cub(t_cub *cub, int i)
 	ft_freemtx(cub->map->map);
 	free(cub->player);
 	free(cub->map);
+	free(cub->ray);
 	free(cub);
 
 	exit(i);
 }
 
+void	player_direction(t_cub *cub)
+{
+	cub->player->dir[_X_] = 0;
+	cub->player->dir[_Y_] = -1;
+
+	if (cub->map->map[cub->map->player_x][cub->map->player_y] == 'E')
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], PI);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], PI);
+	}
+	else if (cub->map->map[cub->map->player_x][cub->map->player_y] == 'S')
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], PI / 2);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], PI / 2);
+	}
+	else if (cub->map->map[cub->map->player_x][cub->map->player_y] == 'W')
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], PI * 2);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], PI * 2);
+		
+	}
+	else if (cub->map->map[cub->map->player_x][cub->map->player_y] == 'N')
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_],(PI * 3) / 2);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], (PI * 3) / 2);
+	}
+}
+
 void	init_player(t_cub *cub)
 { 
 	cub->player = malloc(sizeof(t_player));
-	// dependendo da letra do mapa vai mudar o angulo
-	// cub->player->deltaPosA = PI;
-	// cub->player->deltaPosX = cos(cub->player->deltaPosA) * 5;
-	// cub->player->deltaPosY = sin(cub->player->deltaPosA) * 5;
+	cub->ray = malloc(sizeof(t_raycasting));
 	
-	// Pos
-	cub->player->posx = (double)cub->map->player_x;
-	cub->player->posy = (double)cub->map->player_y;
-	// cub->player->posx = 5;
-	// cub->player->posy = 5;
-	// dir
-	cub->player->dirX = 0;
-	cub->player->dirY = -1; 
+	cub->player->pos[_X_] = (double)cub->map->player_x;
+	cub->player->pos[_Y_] = (double)cub->map->player_y;
+	cub->player->plane[_X_] = 0.66; 
+	cub->player->plane[_Y_] = 0;
 
-	// Plane
-	cub->player->planeX = 0.66; 
-	cub->player->planeY = 0; 
+	player_direction(cub);
 
-	// cub->player->time = 0; 
-	// cub->player->oldTime = 0; 
 }

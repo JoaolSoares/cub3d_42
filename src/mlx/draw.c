@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/04 16:42:43 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:07:47 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,17 +34,17 @@ void floor_and_ceiling(t_cub *cub)
 		int y;
 
 		x = 0;
-		while(x++ < 800)
+		while(x++ < WIN_WIDTH)
 		{
 			y = 0;
-			while(y++ < 300)
+			while(y++ < WIN_HEIGHT / 2)
 				pixel_put(cub, x, y, cub->map->ceil_color);
 		}
 		x = 0;
-		while(x++ < 800)
+		while(x++ < WIN_WIDTH)
 		{
-			y = 300;
-			while(y++ < 600)
+			y = WIN_HEIGHT / 2;
+			while(y++ < WIN_HEIGHT)
 				pixel_put(cub, x, y, cub->map->floor_color);
 		}
 }
@@ -88,162 +88,131 @@ void draw_map(t_cub *cub)
 		}
 }
 
-
-# define _X_ 0
-# define _Y_ 1
-typedef struct s_raycasting
-{
-	double	multiplier;
-	double	cameraPixel[2];
-	double	rayDir[2];
-	double	mag;
-	double	deltaDist[2];
-	double	mapPos[2];
-	double	distToSide[2];
-	double	step[2];
-	int		hit;
-	int		hitSide;
-	double	ddaLineSize[2];
-	double	wallMapPos[2];
-	double	perpendicularDist;
-	double	wallLineHeight;
-	double	lineStartY;
-	double	lineEndY;
-
-}	t_raycasting;
-
 void draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color)
 {
-	while (y1 >= y2)
+	while (y1 != y2)
 	{
 		pixel_put(cub, x, y1, color);
-		y1--;
+		if (y1 > y2)
+			y1--;
+		else
+			y1++;
 	}
 }
 
 void draw(t_cub *cub)
 {
 	double			pixel;
-	t_raycasting	*ray;
 
-	ray = malloc(sizeof(t_raycasting));
+	cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
+    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
 
 	floor_and_ceiling(cub);
 	pixel = 0;
 	while (pixel < WIN_WIDTH)
 	{
-		ray->multiplier			= 2 * (pixel / WIN_WIDTH) - 1;
+		cub->ray->multiplier			= 2 * (pixel / WIN_WIDTH) - 1;
 		
-		ray->cameraPixel[_X_]	= cub->player->planeX * ray->multiplier;
-		ray->cameraPixel[_Y_]	= cub->player->planeY * ray->multiplier;
-	
+		cub->ray->cameraPixel[_X_]	= cub->player->plane[_X_] * cub->ray->multiplier;
+		cub->ray->cameraPixel[_Y_]	= cub->player->plane[_Y_] * cub->ray->multiplier;
 		
-		ray->rayDir[_X_]		= cub->player->dirX + ray->cameraPixel[_X_];
-		ray->rayDir[_Y_]		= cub->player->dirY + ray->cameraPixel[_Y_];
+		cub->ray->rayDir[_X_]		= cub->player->dir[_X_] + cub->ray->cameraPixel[_X_];
+		cub->ray->rayDir[_Y_]		= cub->player->dir[_Y_] + cub->ray->cameraPixel[_Y_];
 
-		// mag					= sqrt(pow(rayDir[_X_], 2) + pow(rayDir[_Y_], 2));
-		// deltaDist[_X_]		= abs(1 / rayDir[_X_]);
-		// deltaDist[_Y_]		= abs(1 / rayDir[_Y_]);
-		if (ray->rayDir[_X_] == 0)
+
+		if (cub->ray->rayDir[_X_] == 0)
 		{
-			ray->deltaDist[_X_]	= 1;
-			ray->deltaDist[_Y_]	= 0;
+			cub->ray->deltaDist[_X_]	= 1;
+			cub->ray->deltaDist[_Y_]	= 0;
 		}
 		else
 		{
-			if (ray->rayDir[_Y_] != 0)
-				ray->deltaDist[_X_]	= fabs(1 / ray->rayDir[_X_]);
+			if (cub->ray->rayDir[_Y_] != 0)
+				cub->ray->deltaDist[_X_]	= fabs(1 / cub->ray->rayDir[_X_]);
 		}
 		
-		if (ray->rayDir[_Y_] == 0)
+		if (cub->ray->rayDir[_Y_] == 0)
 		{
-			ray->deltaDist[_Y_]	= 1;
-			ray->deltaDist[_X_]	= 0;
+			cub->ray->deltaDist[_Y_]	= 1;
+			cub->ray->deltaDist[_X_]	= 0;
 		}
 		else
 		{
-			if (ray->rayDir[_X_] != 0)
-				ray->deltaDist[_Y_]	= fabs(1 / ray->rayDir[_Y_]); 
+			if (cub->ray->rayDir[_X_] != 0)
+				cub->ray->deltaDist[_Y_]	= fabs(1 / cub->ray->rayDir[_Y_]); 
 		}
 
 
-		ray->mapPos[_X_]			= floor(cub->player->posx);
-		ray->mapPos[_Y_]			= floor(cub->player->posy);
+		cub->ray->mapPos[_X_]			= floor(cub->player->pos[_X_]);
+		cub->ray->mapPos[_Y_]			= floor(cub->player->pos[_Y_]);
 
 
-		if (ray->rayDir[_X_] < 0)
+		if (cub->ray->rayDir[_X_] < 0)
 		{
-			ray->distToSide[_X_]	= (cub->player->posx - ray->mapPos[_X_]) * ray->deltaDist[_X_];
-			ray->step[_X_]			= -1;
-		}
-		else
-		{
-			ray->distToSide[_X_]	= (ray->mapPos[_X_] + 1 - cub->player->posx) * ray->deltaDist[_X_];
-			ray->step[_X_]			= 1;
-		}
-
-		if (ray->rayDir[_Y_] < 0)
-		{
-			ray->distToSide[_Y_]	= (cub->player->posy - ray->mapPos[_Y_]) * ray->deltaDist[_Y_];
-			ray->step[_Y_]			= -1;
+			cub->ray->distToSide[_X_]	= (cub->player->pos[_X_] - cub->ray->mapPos[_X_]) * cub->ray->deltaDist[_X_];
+			cub->ray->step[_X_]			= -1;
 		}
 		else
 		{
-			ray->distToSide[_Y_]	= (ray->mapPos[_Y_] + 1 - cub->player->posy) * ray->deltaDist[_Y_];
-			ray->step[_Y_]			= 1;
+			cub->ray->distToSide[_X_]	= (cub->ray->mapPos[_X_] + 1 - cub->player->pos[_X_]) * cub->ray->deltaDist[_X_];
+			cub->ray->step[_X_]			= 1;
+		}
+
+		if (cub->ray->rayDir[_Y_] < 0)
+		{
+			cub->ray->distToSide[_Y_]	= (cub->player->pos[_Y_] - cub->ray->mapPos[_Y_]) * cub->ray->deltaDist[_Y_];
+			cub->ray->step[_Y_]			= -1;
+		}
+		else
+		{
+			cub->ray->distToSide[_Y_]	= (cub->ray->mapPos[_Y_] + 1 - cub->player->pos[_Y_]) * cub->ray->deltaDist[_Y_];
+			cub->ray->step[_Y_]			= 1;
 		}
 	
 
-		ray->ddaLineSize[_X_]	= ray->distToSide[_X_];
-		ray->ddaLineSize[_Y_]	= ray->distToSide[_Y_];
+		cub->ray->ddaLineSize[_X_]	= cub->ray->distToSide[_X_];
+		cub->ray->ddaLineSize[_Y_]	= cub->ray->distToSide[_Y_];
 
-		ray->wallMapPos[_X_]	= ray->mapPos[_X_];		
-		ray->wallMapPos[_Y_]	= ray->mapPos[_Y_];
+		cub->ray->wallMapPos[_X_]	= cub->ray->mapPos[_X_];		
+		cub->ray->wallMapPos[_Y_]	= cub->ray->mapPos[_Y_];
 		
-		ray->hit				= FALSE;
-		while (ray->hit == FALSE)
+		cub->ray->hit				= FALSE;
+		while (cub->ray->hit == FALSE)
 		{
-			if (ray->ddaLineSize[_X_] < ray->ddaLineSize[_Y_])
+			if (cub->ray->ddaLineSize[_X_] < cub->ray->ddaLineSize[_Y_])
 			{
-				ray->wallMapPos[_X_]		+= ray->step[_X_];
-				ray->ddaLineSize[_X_]	+= ray->deltaDist[_X_];
-				ray->hitSide				= _X_;
+				cub->ray->wallMapPos[_X_]		+= cub->ray->step[_X_];
+				cub->ray->ddaLineSize[_X_]		+= cub->ray->deltaDist[_X_];
+				cub->ray->hitSide				= _X_;
 			}
 			else
 			{
-				ray->wallMapPos[_Y_]		+= ray->step[_Y_];
-				ray->ddaLineSize[_Y_]	+= ray->deltaDist[_Y_];
-				ray->hitSide				= _Y_;
+				cub->ray->wallMapPos[_Y_]		+= cub->ray->step[_Y_];
+				cub->ray->ddaLineSize[_Y_]		+= cub->ray->deltaDist[_Y_];
+				cub->ray->hitSide				= _Y_;
 			}
-			if (cub->map->map[(int)ray->wallMapPos[_X_]][(int)ray->wallMapPos[_Y_]] == '1')
-				ray->hit					= TRUE;
+			if (cub->map->map[(int)cub->ray->wallMapPos[_X_]][(int)cub->ray->wallMapPos[_Y_]] == '1')
+				cub->ray->hit					= TRUE;
 		}
 
-		if (ray->hitSide == _X_)
-		{
-			ray->perpendicularDist = fabs(ray->wallMapPos[_X_] - cub->player->posx + ((1 - (int)ray->step[_X_] / 2))) / ray->rayDir[_X_];
-		}
+		if (cub->ray->hitSide == _X_)
+			cub->ray->perpendicularDist = fabs(cub->ray->wallMapPos[_X_] - cub->player->pos[_X_] + ((1 - cub->ray->step[_X_]) / 2)) / cub->ray->rayDir[_X_];
 		else
-		{
-			ray->perpendicularDist = fabs(ray->wallMapPos[_Y_] - cub->player->posy + ((1 - (int)ray->step[_Y_] / 2))) / ray->rayDir[_Y_];
-		}
+			cub->ray->perpendicularDist = fabs(cub->ray->wallMapPos[_Y_] - cub->player->pos[_Y_] + ((1 - cub->ray->step[_Y_]) / 2)) / cub->ray->rayDir[_Y_];
 
-		ray->wallLineHeight	= WIN_HEIGHT / ray->perpendicularDist;
-		ray->lineStartY		= WIN_HEIGHT / 2 - ray->wallLineHeight / 2;
-		ray->lineEndY		= WIN_HEIGHT / 2 + ray->wallLineHeight / 2;
+		cub->ray->wallLineHeight	= WIN_HEIGHT / cub->ray->perpendicularDist;
+		cub->ray->lineStartY		= WIN_HEIGHT / 2 - cub->ray->wallLineHeight / 2;
+		cub->ray->lineEndY			= WIN_HEIGHT / 2 + cub->ray->wallLineHeight / 2;
 
-		int color = ray->hitSide == _Y_ ? 0xFF0000 : 0x8b0000;
-		
+		int color = cub->ray->hitSide == _Y_ ? 0xFF0000 : 0x8b0000;
 
-		draw_vertical_line(cub, pixel, (int)ray->lineStartY, (int)ray->lineEndY, color);
+		draw_vertical_line(cub, pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
 
 		pixel++;
 	}
 
-
 	mlx_put_image_to_window(cub->mlx->mlx, cub->mlx->win, cub->mlx->img, 0, 0);
 	mlx_destroy_image(cub->mlx->mlx, cub->mlx->img);
-	free(ray);
 }
 
 

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/04 17:31:45 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:23:01 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +49,13 @@
 // 	return (0);
 // }
 
-void rotate(double *x, double *y, double angle) {
-    double s = sin(angle);
-    double c = cos(angle);
+void    rotate(double *x, double *y, double angle)
+{
+    double  s;
+    double  c;
+
+    s = sin(angle);
+    c = cos(angle);
 
     double new_x = *x * c - *y * s;
     double new_y = *x * s + *y * c;
@@ -63,51 +67,57 @@ void rotate(double *x, double *y, double angle) {
 int	key_hook(int keycode, t_cub *cub)
 {
     double strafeDir[2];
-    
+    // tem que mudar tudo esses if dentro de ifs das keys, por causa da colisão
 	if (keycode == ESC_KEY)
 		exit_cub(cub, 0);
 	else if (keycode == W_KEY)
     {
-        if (cub->map->map[(int)(cub->player->posx)][(int)(cub->player->posy + 0.1)] != '1')
-            cub->player->posx += cub->player->dirX * MOVE_SPEED;
-            cub->player->posy += cub->player->dirY * MOVE_SPEED;
+        if (cub->map->map[(int)(cub->player->pos[_X_] + cub->player->dir[_X_] * 0.1)][(int)(cub->player->pos[_Y_] + cub->player->dir[_Y_] * MOVE_SPEED)] != '1')
+        {
+            cub->player->pos[_X_] += cub->player->dir[_X_] * MOVE_SPEED;
+            cub->player->pos[_Y_] += cub->player->dir[_Y_] * MOVE_SPEED;
+        }
     }
     else if (keycode == A_KEY)
     {
-        if (cub->map->map[(int)(cub->player->posx + 0.1)][(int)(cub->player->posy)] != '1')
-            strafeDir[0] = cub->player->dirX;
-            strafeDir[1] = cub->player->dirY;
-            rotate(&strafeDir[0], &strafeDir[1], PI/2);
-            cub->player->posx -= strafeDir[0] * MOVE_SPEED;
-            cub->player->posy -= strafeDir[1] * MOVE_SPEED;
+        if (cub->map->map[(int)(cub->player->pos[_X_] + 0.075)][(int)(cub->player->pos[_Y_])] != '1')
+        {
+            strafeDir[0] = cub->player->dir[_X_];
+            strafeDir[1] = cub->player->dir[_Y_];
+            rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
+            cub->player->pos[_X_] -= strafeDir[_X_] * MOVE_SPEED;
+            cub->player->pos[_Y_] -= strafeDir[_Y_] * MOVE_SPEED;
+        }
     }
 	else if (keycode == S_KEY)
     {
-        if (cub->map->map[(int)(cub->player->posx)][(int)(cub->player->posy - 0.1)] != '1')
-            cub->player->posx -= cub->player->dirX * MOVE_SPEED;
-            cub->player->posy -= cub->player->dirY * MOVE_SPEED;
+        if (cub->map->map[(int)(cub->player->pos[_X_] - cub->player->dir[_X_] * 0.1)][(int)(cub->player->pos[_Y_] - cub->player->dir[_Y_] * MOVE_SPEED)] != '1')
+        {
+            cub->player->pos[_X_] -= cub->player->dir[_X_] * MOVE_SPEED;
+            cub->player->pos[_Y_] -= cub->player->dir[_Y_] * MOVE_SPEED;
+        }
     }
 	else if (keycode == D_KEY)
     {
-        if (cub->map->map[(int)(cub->player->posx - 0.1)][(int)(cub->player->posy)] != '1')
-            strafeDir[0] = cub->player->dirX;
-            strafeDir[1] = cub->player->dirY;
-            rotate(&strafeDir[0], &strafeDir[1], PI/2);
-            cub->player->posx += strafeDir[0] * MOVE_SPEED;
-            cub->player->posy += strafeDir[1] * MOVE_SPEED;
+        if (cub->map->map[(int)(cub->player->pos[_X_] - 0.075)][(int)(cub->player->pos[_Y_])] != '1')
+        {
+            strafeDir[_X_] = cub->player->dir[_X_];
+            strafeDir[_Y_] = cub->player->dir[_Y_];
+            rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
+            cub->player->pos[_X_] += strafeDir[_X_] * MOVE_SPEED;
+            cub->player->pos[_Y_] += strafeDir[_Y_] * MOVE_SPEED;
+        }
     }
     else if (keycode == LEFT_KEY )
     {
-        rotate(&cub->player->dirX, &cub->player->dirY, -0.1);
-	    rotate(&cub->player->planeX, &cub->player->planeY, -0.1);
+        rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], -ROTATE_SPEED);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], -ROTATE_SPEED);
     }
     else if (keycode == RIGHT_KEY)
     {
-        rotate(&cub->player->dirX, &cub->player->dirY, 0.1);
-	    rotate(&cub->player->planeX, &cub->player->planeY, 0.1);
+        rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], ROTATE_SPEED);
+	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], ROTATE_SPEED);
     }
-    cub->mlx->img = mlx_new_image(cub->mlx->mlx, WIN_WIDTH, WIN_HEIGHT);
-    cub->mlx->addr = mlx_get_data_addr(cub->mlx->img, &cub->mlx->bits_per_pixel, &cub->mlx->line_length, &cub->mlx->endian);
     draw(cub);
     return (0);
 }

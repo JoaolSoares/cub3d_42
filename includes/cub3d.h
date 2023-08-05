@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/04 17:25:50 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/05 16:20:50 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,13 @@
 # define D_KEY		100
 # define LEFT_KEY	65361
 # define RIGHT_KEY	65363
-# define MOVE_SPEED	0.075
+
+# define MOVE_SPEED		0.075
+# define ROTATE_SPEED	0.1
 
 # define PI			3.141592653589793
+# define _X_		0
+# define _Y_		1
 
 //  STRUCTS  //
 typedef enum s_tx
@@ -80,26 +84,33 @@ typedef struct s_map
 
 }	t_map;
 
+typedef struct s_raycasting
+{
+	double	multiplier;
+	double	cameraPixel[2];
+	double	rayDir[2];
+	double	deltaDist[2];
+	double	mapPos[2];
+	double	distToSide[2];
+	double	step[2];
+	int		hit;
+	int		hitSide;
+	double	ddaLineSize[2];
+	double	wallMapPos[2];
+	double	perpendicularDist;
+	double	wallLineHeight;
+	double	lineStartY;
+	double	lineEndY;
+
+}	t_raycasting;
+
 typedef struct s_player
 {
-	double	dirX; 
-	double	dirY;
-    double	planeX;
-	double	planeY;
-    double	time;
-    double	oldTime;
-	double	cameraX;
-	double	rayDirX;
-	double	rayDirY;
-	double	deltaDistX;
-	double	deltaDistY;
-	double 	posx;
-    double	posy;
-	double	deltaPosX;
-	double	deltaPosY;
-	double	deltaPosA;
-	
-} t_player; 
+	double	dir[2]; 
+    double	plane[2];
+	double 	pos[2];
+
+} t_player;
 
 typedef struct s_mlx
 {
@@ -115,9 +126,10 @@ typedef struct s_mlx
 
 typedef struct s_cub
 {
-	t_map		*map;
-	t_mlx		*mlx;
-	t_player	*player;
+	t_map			*map;
+	t_mlx			*mlx;
+	t_player		*player;
+	t_raycasting	*ray;
 
 }	t_cub;
 
@@ -141,6 +153,7 @@ void	draw_square(t_cub *cub, int x, int y, int size);
 void	floor_and_ceiling(t_cub *cub);
 
 // Hooks
+void    rotate(double *x, double *y, double angle);
 void	hook_handler(t_cub *cub);
 
 // Allocs
