@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/05 16:07:47 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/06 17:14:51 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void draw(t_cub *cub)
 
 	floor_and_ceiling(cub);
 	pixel = 0;
-	while (pixel < WIN_WIDTH)
+	while (pixel <= WIN_WIDTH)
 	{
 		cub->ray->multiplier			= 2 * (pixel / WIN_WIDTH) - 1;
 		
@@ -206,7 +206,7 @@ void draw(t_cub *cub)
 
 		int color = cub->ray->hitSide == _Y_ ? 0xFF0000 : 0x8b0000;
 
-		draw_vertical_line(cub, pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
+		draw_vertical_line(cub, WIN_WIDTH - pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
 
 		pixel++;
 	}
