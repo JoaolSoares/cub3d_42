@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/05 16:20:50 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:14:05 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,8 @@
 # define LEFT_KEY	65361
 # define RIGHT_KEY	65363
 
-# define MOVE_SPEED		0.075
+# define COLISION_DIS	0.5
+# define MOVE_SPEED		0.1
 # define ROTATE_SPEED	0.1
 
 # define PI			3.141592653589793

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/06 17:25:42 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/06 21:26:44 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,16 @@ void    rotate(double *x, double *y, double angle)
 int	key_hook(int keycode, t_cub *cub)
 {
     double strafeDir[2];
-    // temn que mudar o if de colisão do A e D;
+
+    strafeDir[0] = cub->player->dir[_X_];
+    strafeDir[1] = cub->player->dir[_Y_];
+    rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
+
 	if (keycode == ESC_KEY)
 		exit_cub(cub, 0);
 	else if (keycode == W_KEY)
     {
-        if (cub->map->map[(int)(cub->player->pos[_X_] + (cub->player->dir[_X_] * 0.2))][(int)(cub->player->pos[_Y_] + (cub->player->dir[_Y_] * 0.2))] != '1')
+        if (cub->map->map[(int)(cub->player->pos[_X_] + (cub->player->dir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] + (cub->player->dir[_Y_] * COLISION_DIS))] != '1')
         {
             cub->player->pos[_X_] += cub->player->dir[_X_] * MOVE_SPEED;
             cub->player->pos[_Y_] += cub->player->dir[_Y_] * MOVE_SPEED;
@@ -80,18 +84,15 @@ int	key_hook(int keycode, t_cub *cub)
     }
     else if (keycode == A_KEY)
     {
-        if (cub->map->map[(int)(cub->player->pos[_X_] + 0.075)][(int)(cub->player->pos[_Y_])] != '1')
+        if (cub->map->map[(int)(cub->player->pos[_X_] + (strafeDir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] + (strafeDir[_Y_] * COLISION_DIS))] != '1')
         {
-            strafeDir[0] = cub->player->dir[_X_];
-            strafeDir[1] = cub->player->dir[_Y_];
-            rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
             cub->player->pos[_X_] += strafeDir[_X_] * MOVE_SPEED;
             cub->player->pos[_Y_] += strafeDir[_Y_] * MOVE_SPEED;
         }
     }
 	else if (keycode == S_KEY)
     {
-        if (cub->map->map[(int)(cub->player->pos[_X_] - cub->player->dir[_X_] * 0.2)][(int)(cub->player->pos[_Y_] - cub->player->dir[_Y_] * 0.2)] != '1')
+        if (cub->map->map[(int)(cub->player->pos[_X_] - cub->player->dir[_X_] * COLISION_DIS)][(int)(cub->player->pos[_Y_] - cub->player->dir[_Y_] * COLISION_DIS)] != '1')
         {
             cub->player->pos[_X_] -= cub->player->dir[_X_] * MOVE_SPEED;
             cub->player->pos[_Y_] -= cub->player->dir[_Y_] * MOVE_SPEED;
@@ -99,11 +100,8 @@ int	key_hook(int keycode, t_cub *cub)
     }
 	else if (keycode == D_KEY)
     {
-        if (cub->map->map[(int)(cub->player->pos[_X_] - 0.075)][(int)(cub->player->pos[_Y_])] != '1')
+        if (cub->map->map[(int)(cub->player->pos[_X_] - (strafeDir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] - (strafeDir[_Y_] * COLISION_DIS))] != '1')
         {
-            strafeDir[_X_] = cub->player->dir[_X_];
-            strafeDir[_Y_] = cub->player->dir[_Y_];
-            rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
             cub->player->pos[_X_] -= strafeDir[_X_] * MOVE_SPEED;
             cub->player->pos[_Y_] -= strafeDir[_Y_] * MOVE_SPEED;
         }
