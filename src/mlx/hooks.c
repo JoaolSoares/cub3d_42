@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/06 21:26:44 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/07 19:37:51 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,9 +126,32 @@ static int	x_hook(t_cub *cub)
     return (0);
 }
 
+// bonus
+// static int  mouse_hook(int x, int y, t_cub *cub)
+// {
+//     static int old_x;
+    
+
+//     printf("accelera = %i\n", (x - old_x));
+//     if (x > old_x)
+//     {
+//         rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], -ROTATE_SPEED );
+// 	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], -ROTATE_SPEED);
+//     }
+//     if (x < old_x)
+//     {
+//         rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], ROTATE_SPEED);
+// 	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], ROTATE_SPEED);
+//     }
+//     old_x = x;
+//     draw(cub);
+// }
+// bonus
+
 void	hook_handler(t_cub *cub)
 {
     mlx_hook(cub->mlx->win, KeyPress, KeyPressMask, key_hook, cub);
+    // mlx_hook(cub->mlx->win, MotionNotify, PointerMotionMask, mouse_hook, cub);
 	mlx_hook(cub->mlx->win, DestroyNotify, NoEventMask, x_hook, cub);
     mlx_loop(cub->mlx->mlx);
     mlx_loop_hook(cub->mlx->mlx, x_hook, cub);
