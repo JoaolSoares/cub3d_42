@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/06 21:14:05 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:11:53 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,25 +26,24 @@
 # include <math.h>
 
 //  DEFINES  //
-//	Window
-# define WIN_WIDTH	800
-# define WIN_HEIGHT 600
-//	Keys
-# define ESC_KEY	65307
-# define W_KEY		119
-# define A_KEY		97
-# define S_KEY		115
-# define D_KEY		100
-# define LEFT_KEY	65361
-# define RIGHT_KEY	65363
+# define WIN_WIDTH		800
+# define WIN_HEIGHT		600
+
+# define ESC_KEY		65307
+# define W_KEY			119
+# define A_KEY			97
+# define S_KEY			115
+# define D_KEY			100
+# define LEFT_KEY		65361
+# define RIGHT_KEY		65363
 
 # define COLISION_DIS	0.5
 # define MOVE_SPEED		0.1
 # define ROTATE_SPEED	0.1
 
-# define PI			3.141592653589793
-# define _X_		0
-# define _Y_		1
+# define PI				3.141592653589793
+# define _X_			0
+# define _Y_			1
 
 //  STRUCTS  //
 typedef enum s_tx
@@ -125,7 +124,7 @@ typedef struct s_mlx
 
 }	t_mlx;
 
-typedef struct s_img
+typedef struct s_texture
 {
 	void    *ptr;
 	int		*data;
@@ -136,7 +135,7 @@ typedef struct s_img
 	int     endian;
     int     **texture;
 
-}				t_img;
+}	t_texture;
 
 typedef struct s_cub
 {
@@ -144,7 +143,7 @@ typedef struct s_cub
 	t_mlx			*mlx;
 	t_player		*player;
 	t_raycasting	*ray;
-	t_img			*img[4];
+	t_texture		*tx_data[4];
 	
 }	t_cub;
 
@@ -172,7 +171,7 @@ void    rotate(double *x, double *y, double angle);
 void	hook_handler(t_cub *cub);
 
 // Allocs
-void	exit_cub(t_cub *cub, int i);
+void	exit_cub(t_cub *cub, int exit_num);
 void	init_player(t_cub *cub);
 
 #endif

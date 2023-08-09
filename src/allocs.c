@@ -6,39 +6,65 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/02 21:57:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/06 21:12:34 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:07:53 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	exit_cub(t_cub *cub, int i)
+void free_map(t_cub *cub)
 {
-	int count;
-	if(i != 51)
-	{
-		mlx_destroy_window(cub->mlx->mlx, cub->mlx->win);
-		mlx_destroy_display(cub->mlx->mlx);
-		mlx_loop_end(cub->mlx->mlx);
-		free(cub->mlx->mlx);
-		free(cub->mlx);
-	}
-	count = -1;
-	while (++count < cub->img[count]->altura)
-		free(cub->img[count]->texture[count]);
-	free(cub->img[count]->texture);
-
-	count = -1;
-	while(++count < 4)
-		free(cub->img[count]); // NO SO WE EA
 	ft_freemtx(cub->map->textures);
 	ft_freemtx(cub->map->map);
-	free(cub->player);
 	free(cub->map);
+}
+
+void free_textures(t_cub *cub)
+{
+	int i;
+	int j;
+
+	i = -1;
+	while (++i < 4)
+	{
+		j = -1;
+		while (++j < cub->tx_data[i]->altura)
+			free(cub->tx_data[i]->texture[j]);
+		free(cub->tx_data[i]->texture);
+	}
+	i = -1;
+	while(++i < 4)
+		free(cub->tx_data[i]);
+}
+
+void free_mlx(t_cub *cub)
+{
+	mlx_destroy_window(cub->mlx->mlx, cub->mlx->win);
+	mlx_destroy_display(cub->mlx->mlx);
+	mlx_loop_end(cub->mlx->mlx);
+	free(cub->mlx->mlx);
+	free(cub->mlx);
+}
+
+
+void	exit_cub(t_cub *cub, int exit_num)
+{
+
+	
+	if(exit_num != 51)
+	{
+		free_mlx(cub);
+	}
+	
+	free_textures(cub);
+
+	free_map(cub);
+
+	free(cub->player);
 	free(cub->ray);
 	free(cub);
 
-	exit(i);
+	exit(exit_num);
 }
 
 void	player_direction(t_cub *cub)

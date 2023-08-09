@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/06 17:14:51 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/09 19:07:53 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,13 +200,13 @@ void draw(t_cub *cub)
 		cub->ray->lineStartY		= WIN_HEIGHT / 2 - cub->ray->wallLineHeight / 2;
 		cub->ray->lineEndY			= WIN_HEIGHT / 2 + cub->ray->wallLineHeight / 2;
 		if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] < 0)
-			color = cub->img[EA]->texture[35][35];//EA VERMELHO
+			color = cub->tx_data[EA]->texture[35][35];//EA VERMELHO
 		else if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] > 0)
-			color = cub->img[WE]->texture[35][35];//WE AMARELO
+			color = cub->tx_data[WE]->texture[35][35];//WE AMARELO
 		if(cub->ray->hitSide == _X_ && cub->ray->rayDir[_X_] < 0)
-			color = cub->img[SO]->texture[35][35];//SO AZUL
+			color = cub->tx_data[SO]->texture[35][35];//SO AZUL
 		else if(cub->ray->hitSide == _X_ && cub->ray->rayDir[_X_] > 0)
-			color = cub->img[NO]->texture[35][35];//NO BRANCO
+			color = cub->tx_data[NO]->texture[35][35];//NO BRANCO
 		draw_vertical_line(cub, WIN_WIDTH - pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
 
 		pixel++;
