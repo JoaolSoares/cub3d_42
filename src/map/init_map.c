@@ -69,7 +69,7 @@ void	init_map(t_cub *cub, char *file)
 	cub->map->floor_color = 0;
 
 	i_map = get_textures(cub, file_content);
-	
+
 	cub->map->height = 0;
 	while (line_is_empty(file_content[i_map++]) == FALSE)
 		cub->map->height++;

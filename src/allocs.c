@@ -14,6 +14,7 @@
 
 void	exit_cub(t_cub *cub, int i)
 {
+	int count;
 	if(i != 51)
 	{
 		mlx_destroy_window(cub->mlx->mlx, cub->mlx->win);
@@ -22,6 +23,14 @@ void	exit_cub(t_cub *cub, int i)
 		free(cub->mlx->mlx);
 		free(cub->mlx);
 	}
+	count = -1;
+	while (++count < cub->img[count]->altura)
+		free(cub->img[count]->texture[count]);
+	free(cub->img[count]->texture);
+
+	count = -1;
+	while(++count < 4)
+		free(cub->img[count]); // NO SO WE EA
 	ft_freemtx(cub->map->textures);
 	ft_freemtx(cub->map->map);
 	free(cub->player);

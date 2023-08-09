@@ -72,7 +72,7 @@ void draw_map(t_cub *cub)
 {
 		int x;
 		int y;
-		
+	
 		x = 0;
 		y = 0;
 		while(cub->map->map[y])
@@ -112,13 +112,12 @@ void draw(t_cub *cub)
 	while (pixel <= WIN_WIDTH)
 	{
 		cub->ray->multiplier			= 2 * (pixel / WIN_WIDTH) - 1;
-		
+
 		cub->ray->cameraPixel[_X_]	= cub->player->plane[_X_] * cub->ray->multiplier;
 		cub->ray->cameraPixel[_Y_]	= cub->player->plane[_Y_] * cub->ray->multiplier;
-		
+
 		cub->ray->rayDir[_X_]		= cub->player->dir[_X_] + cub->ray->cameraPixel[_X_];
 		cub->ray->rayDir[_Y_]		= cub->player->dir[_Y_] + cub->ray->cameraPixel[_Y_];
-
 
 		if (cub->ray->rayDir[_X_] == 0)
 		{
@@ -130,7 +129,7 @@ void draw(t_cub *cub)
 			if (cub->ray->rayDir[_Y_] != 0)
 				cub->ray->deltaDist[_X_]	= fabs(1 / cub->ray->rayDir[_X_]);
 		}
-		
+
 		if (cub->ray->rayDir[_Y_] == 0)
 		{
 			cub->ray->deltaDist[_Y_]	= 1;
@@ -142,10 +141,8 @@ void draw(t_cub *cub)
 				cub->ray->deltaDist[_Y_]	= fabs(1 / cub->ray->rayDir[_Y_]); 
 		}
 
-
 		cub->ray->mapPos[_X_]			= floor(cub->player->pos[_X_]);
 		cub->ray->mapPos[_Y_]			= floor(cub->player->pos[_Y_]);
-
 
 		if (cub->ray->rayDir[_X_] < 0)
 		{
@@ -168,14 +165,13 @@ void draw(t_cub *cub)
 			cub->ray->distToSide[_Y_]	= (cub->ray->mapPos[_Y_] + 1 - cub->player->pos[_Y_]) * cub->ray->deltaDist[_Y_];
 			cub->ray->step[_Y_]			= 1;
 		}
-	
 
 		cub->ray->ddaLineSize[_X_]	= cub->ray->distToSide[_X_];
 		cub->ray->ddaLineSize[_Y_]	= cub->ray->distToSide[_Y_];
-
 		cub->ray->wallMapPos[_X_]	= cub->ray->mapPos[_X_];		
 		cub->ray->wallMapPos[_Y_]	= cub->ray->mapPos[_Y_];
-		
+		int color;
+
 		cub->ray->hit				= FALSE;
 		while (cub->ray->hit == FALSE)
 		{
@@ -203,9 +199,14 @@ void draw(t_cub *cub)
 		cub->ray->wallLineHeight	= WIN_HEIGHT / cub->ray->perpendicularDist;
 		cub->ray->lineStartY		= WIN_HEIGHT / 2 - cub->ray->wallLineHeight / 2;
 		cub->ray->lineEndY			= WIN_HEIGHT / 2 + cub->ray->wallLineHeight / 2;
-
-		int color = cub->ray->hitSide == _Y_ ? 0xFF0000 : 0x8b0000;
-
+		if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] < 0)
+			color = cub->img[EA]->texture[35][35];//EA VERMELHO
+		else if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] > 0)
+			color = cub->img[WE]->texture[35][35];//WE AMARELO
+		if(cub->ray->hitSide == _X_ && cub->ray->rayDir[_X_] < 0)
+			color = cub->img[SO]->texture[35][35];//SO AZUL
+		else if(cub->ray->hitSide == _X_ && cub->ray->rayDir[_X_] > 0)
+			color = cub->img[NO]->texture[35][35];//NO BRANCO
 		draw_vertical_line(cub, WIN_WIDTH - pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
 
 		pixel++;

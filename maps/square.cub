@@ -1,7 +1,7 @@
-NO textures/wolfenstein/purple_stone.xpm
-SO textures/wolfenstein/eagle.xpm
-WE textures/wolfenstein/red_brick.xpm
-EA textures/wolfenstein/wood.xpm
+NO ./NO.xpm
+SO ./SO.xpm
+WE ./WE.xpm
+EA ./EA.xpm
 
 F 20,20,20
 C 135,206,235

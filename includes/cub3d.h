@@ -125,20 +125,34 @@ typedef struct s_mlx
 
 }	t_mlx;
 
+typedef struct s_img
+{
+	void    *ptr;
+	int		*data;
+	int		largura;
+	int		altura;
+	int     size_l;
+	int     bpp;
+	int     endian;
+    int     **texture;
+
+}				t_img;
+
 typedef struct s_cub
 {
 	t_map			*map;
 	t_mlx			*mlx;
 	t_player		*player;
 	t_raycasting	*ray;
-
+	t_img			*img[4];
+	
 }	t_cub;
-
 
 //	FUNCTIONS	//
 // Init
 void	init_map(t_cub *cub, char *file);
 void	init_mlx(t_cub *cub);
+void	init_img(t_cub *cub);
 int		line_is_empty(char *str);
 // Get
 int		get_textures(t_cub *cub, char **content);

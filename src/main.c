@@ -35,8 +35,8 @@ int	main(int argc, char *argv[])
 	cub = (t_cub *)malloc(sizeof(t_cub));
 	init_map(cub, argv[1]);
 	map_validation(cub);
-
 	init_mlx(cub);
+	init_img(cub);
 	init_player(cub);
 	draw(cub);
 
