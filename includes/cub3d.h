@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/09 19:11:53 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/09 23:14:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,21 +62,12 @@ typedef enum s_bool
 
 }	t_bool;
 
-typedef struct s_linepoint
-{
-	int x;
-	int y;
-	int xo;
-	int yo;
-
-}	t_linepoint;
-
 typedef struct s_map
 {
 	char	**map;
 	int		height;
 	int		width;
-	char	**textures;
+	char	**textures_paths;
 	int		floor_color;
 	int		ceil_color;
 	int		player_x;
@@ -128,8 +119,8 @@ typedef struct s_texture
 {
 	void    *ptr;
 	int		*data;
-	int		largura;
-	int		altura;
+	int		weight;
+	int		height;
 	int     size_l;
 	int     bpp;
 	int     endian;
@@ -149,13 +140,13 @@ typedef struct s_cub
 
 //	FUNCTIONS	//
 // Init
-void	init_map(t_cub *cub, char *file);
+void	read_file(t_cub *cub, char *file);
 void	init_mlx(t_cub *cub);
-void	init_img(t_cub *cub);
+void	init_textures(t_cub *cub);
 int		line_is_empty(char *str);
 // Get
-int		get_textures(t_cub *cub, char **content);
-void	get_map(t_cub *cub, char **content, int i_map);
+int		get_textures_path(t_cub *cub, char **content, int *file_index);
+void	get_map(t_cub *cub, char **content, int file_index);
 // Validation
 void	map_validation(t_cub *cub);
 
@@ -171,7 +162,12 @@ void    rotate(double *x, double *y, double angle);
 void	hook_handler(t_cub *cub);
 
 // Allocs
+void	free_map(t_cub *cub);
+void	free_textures(t_cub *cub);
+void	free_mlx(t_cub *cub);
 void	exit_cub(t_cub *cub, int exit_num);
+
+
 void	init_player(t_cub *cub);
 
 #endif

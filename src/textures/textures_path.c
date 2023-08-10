@@ -1,30 +1,16 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_infos.c                                        :+:      :+:    :+:   */
+/*   textures_path.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2023/06/26 21:28:53 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/07/04 22:14:59 by jlucas-s         ###   ########.fr       */
+/*   Created: 2023/08/09 23:06:19 by jlucas-s          #+#    #+#             */
+/*   Updated: 2023/08/09 23:08:21 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
-
-int line_is_empty(char *str)
-{
-	int i;
-
-	i = 0;
-	while(str && str[i] && str[i] != '\n')
-	{
-		if(str[i] != ' ' && str[i] != '\t')
-			return (FALSE);	
-		i++;
-	}
-	return (TRUE);
-}
 
 static int rgb_to_hex(char *rgb) 
 {
@@ -50,27 +36,26 @@ static int rgb_to_hex(char *rgb)
     return (hex);
 }
 
-int	get_textures(t_cub *cub, char **content)
+int get_textures_path(t_cub *cub, char **content, int *file_index)
 {
-	int			i;
 	int			texture_posi;
 	char		**temp;
 
-	i = 0;
+	*file_index = 0;
 	texture_posi = 0;
-	while (content[i])
+	while (content[*file_index])
 	{
-		if (texture_posi <= 5 && line_is_empty(content[i]) == FALSE)
+		if (texture_posi <= 5 && line_is_empty(content[*file_index]) == FALSE)
 		{
-			temp = ft_split(content[i], ' ', 0);
-			if (!ft_strncmp(temp[0], "NO", 3) && cub->map->textures[NO] == 0)
-				cub->map->textures[NO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-			else if (!ft_strncmp(temp[0], "SO", 3) && cub->map->textures[SO] == 0)
-				cub->map->textures[SO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-			else if (!ft_strncmp(temp[0], "WE", 3) && cub->map->textures[WE] == 0)
-				cub->map->textures[WE] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
-			else if (!ft_strncmp(temp[0], "EA", 3) && cub->map->textures[EA] == 0)
-				cub->map->textures[EA] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			temp = ft_split(content[*file_index], ' ', 0);
+			if (!ft_strncmp(temp[0], "NO", 3) && cub->map->textures_paths[NO] == 0)
+				cub->map->textures_paths[NO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "SO", 3) && cub->map->textures_paths[SO] == 0)
+				cub->map->textures_paths[SO] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "WE", 3) && cub->map->textures_paths[WE] == 0)
+				cub->map->textures_paths[WE] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+			else if (!ft_strncmp(temp[0], "EA", 3) && cub->map->textures_paths[EA] == 0)
+				cub->map->textures_paths[EA] = ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
 			else if (!ft_strncmp(temp[0], "F", 2) && cub->map->floor_color == 0)
 				cub->map->floor_color = rgb_to_hex(temp[1]);
 			else if (!ft_strncmp(temp[0], "C", 2) && cub->map->ceil_color == 0)
@@ -79,7 +64,7 @@ int	get_textures(t_cub *cub, char **content)
 			{
 				ft_freemtx(temp);
 				ft_freemtx(content);
-				ft_freemtx(cub->map->textures);
+				ft_freemtx(cub->map->textures_paths);
 				free(cub->map);
 				free(cub);
 				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
@@ -90,23 +75,10 @@ int	get_textures(t_cub *cub, char **content)
 		}
 		else if (texture_posi > 5)
 		{
-			while (line_is_empty(content[++i]) == TRUE) ;
-			return (i);
+			while (line_is_empty(content[++*file_index]) == TRUE) ;
+			return (*file_index);
 		}
-		i++;
+		*file_index += 1;
 	}
 	return(0);
-}
-
-void	get_map(t_cub *cub, char **content, int i_map)
-{
-	int	i;
-
-	i = 0;
-	while (line_is_empty(content[i_map]) == FALSE)
-	{
-		cub->map->map[i] = ft_strdup_until(content[i_map], ft_strlen(content[i_map]) - 1);
-		i_map++;
-		i++;
-	}
 }
