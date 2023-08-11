@@ -6,7 +6,7 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/08/09 23:06:51 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/08/10 20:40:12 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,12 +32,12 @@ SRCS =			src/main.c						\
 				src/allocs.c					\
 				src/read_file.c					\
 				src/player.c					\
+				src/draw.c						\
 				src/map/get_map.c				\
 				src/map/validation.c			\
 				src/mlx/init_mlx.c				\
 				src/textures/textures_mtx.c		\
 				src/textures/textures_path.c	\
-				src/mlx/draw.c					\
 				src/mlx/hooks.c					\
 
 OBJS_DIR = 		./objects

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/09 23:14:09 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/10 21:24:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -119,7 +119,7 @@ typedef struct s_texture
 {
 	void    *ptr;
 	int		*data;
-	int		weight;
+	int		width;
 	int		height;
 	int     size_l;
 	int     bpp;
@@ -145,7 +145,7 @@ void	init_mlx(t_cub *cub);
 void	init_textures(t_cub *cub);
 int		line_is_empty(char *str);
 // Get
-int		get_textures_path(t_cub *cub, char **content, int *file_index);
+void	get_textures_path(t_cub *cub, char **content, int *file_index);
 void	get_map(t_cub *cub, char **content, int file_index);
 // Validation
 void	map_validation(t_cub *cub);

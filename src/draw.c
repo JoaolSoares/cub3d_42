@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/09 19:07:53 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/10 22:16:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -90,14 +90,34 @@ void draw_map(t_cub *cub)
 
 void draw_vertical_line(t_cub *cub, int x, int y1, int y2, int color)
 {
+	double	y_count;
+	static double x_count;
+	double tx_step;
+	
+	tx_step = (double)cub->tx_data[1]->height / cub->ray->wallLineHeight;
+	if (cub->ray->wallLineHeight < 0)
+		tx_step = (double)cub->tx_data[1]->height / cub->ray->wallLineHeight * -1;
+	
+	y_count = 0;
 	while (y1 != y2)
 	{
-		pixel_put(cub, x, y1, color);
+		if (y_count < cub->tx_data[1]->width && y_count < cub->tx_data[1]->height)
+		{
+			pixel_put(cub, x, y1, cub->tx_data[1]->texture[(int)y_count][(int)x_count]);
+			if (y_count + tx_step < cub->tx_data[1]->height)
+				y_count += tx_step;
+		}
+		else
+			pixel_put(cub, x, y1, 0xfffffff);
 		if (y1 > y2)
 			y1--;
 		else
 			y1++;
 	}
+	if (cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] < 0)
+		x_count += tx_step;
+	else
+		x_count = 0;
 }
 
 void draw(t_cub *cub)
@@ -199,6 +219,8 @@ void draw(t_cub *cub)
 		cub->ray->wallLineHeight	= WIN_HEIGHT / cub->ray->perpendicularDist;
 		cub->ray->lineStartY		= WIN_HEIGHT / 2 - cub->ray->wallLineHeight / 2;
 		cub->ray->lineEndY			= WIN_HEIGHT / 2 + cub->ray->wallLineHeight / 2;
+	
+		
 		if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] < 0)
 			color = cub->tx_data[EA]->texture[35][35];//EA VERMELHO
 		else if(cub->ray->hitSide == _Y_ && cub->ray->rayDir[_Y_] > 0)
@@ -207,6 +229,7 @@ void draw(t_cub *cub)
 			color = cub->tx_data[SO]->texture[35][35];//SO AZUL
 		else if(cub->ray->hitSide == _X_ && cub->ray->rayDir[_X_] > 0)
 			color = cub->tx_data[NO]->texture[35][35];//NO BRANCO
+			
 		draw_vertical_line(cub, WIN_WIDTH - pixel, (int)cub->ray->lineStartY, (int)cub->ray->lineEndY, color);
 
 		pixel++;

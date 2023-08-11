@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:06:19 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/09 23:08:21 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/10 20:37:01 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int rgb_to_hex(char *rgb)
     return (hex);
 }
 
-int get_textures_path(t_cub *cub, char **content, int *file_index)
+void	get_textures_path(t_cub *cub, char **content, int *file_index)
 {
 	int			texture_posi;
 	char		**temp;
