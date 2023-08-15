@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:06:19 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/10 20:37:01 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/14 18:39:23 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ void	get_textures_path(t_cub *cub, char **content, int *file_index)
 		else if (texture_posi > 5)
 		{
 			while (line_is_empty(content[++*file_index]) == TRUE) ;
-			return (*file_index);
+			return ;
 		}
 		*file_index += 1;
 	}
-	return(0);
 }
