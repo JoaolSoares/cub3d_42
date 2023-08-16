@@ -3,96 +3,54 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/15 19:02:58 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:25:49 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <cub3d.h>
 
-void    rotate(double *x, double *y, double angle)
-{
-    double  s;
-    double  c;
-
-    s = sin(angle);
-    c = cos(angle);
-
-    double new_x = *x * c - *y * s;
-    double new_y = *x * s + *y * c;
-
-    *x = new_x;
-    *y = new_y;
-}
-
 int	key_hook(int keycode, t_cub *cub)
 {
-    double strafeDir[2];
+	double	strafedir[2];
 
-    strafeDir[0] = cub->player->dir[_X_];
-    strafeDir[1] = cub->player->dir[_Y_];
-    rotate(&strafeDir[_X_], &strafeDir[_Y_], PI/2);
-
+	strafedir[0] = cub->player->dir[_X_];
+	strafedir[1] = cub->player->dir[_Y_];
+	rotate(&strafedir[_X_], &strafedir[_Y_], PI / 2);
 	if (keycode == ESC_KEY)
 		exit_cub(cub, 0);
-	else if (keycode == W_KEY)
-    {
-        if (cub->map->map[(int)(cub->player->pos[_X_] + (cub->player->dir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] + (cub->player->dir[_Y_] * COLISION_DIS))] != '1')
-        {
-            cub->player->pos[_X_] += cub->player->dir[_X_] * MOVE_SPEED;
-            cub->player->pos[_Y_] += cub->player->dir[_Y_] * MOVE_SPEED;
-        }
-    }
-    else if (keycode == A_KEY)
-    {
-        if (cub->map->map[(int)(cub->player->pos[_X_] + (strafeDir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] + (strafeDir[_Y_] * COLISION_DIS))] != '1')
-        {
-            cub->player->pos[_X_] += strafeDir[_X_] * MOVE_SPEED;
-            cub->player->pos[_Y_] += strafeDir[_Y_] * MOVE_SPEED;
-        }
-    }
-	else if (keycode == S_KEY)
-    {
-        if (cub->map->map[(int)(cub->player->pos[_X_] - cub->player->dir[_X_] * COLISION_DIS)][(int)(cub->player->pos[_Y_] - cub->player->dir[_Y_] * COLISION_DIS)] != '1')
-        {
-            cub->player->pos[_X_] -= cub->player->dir[_X_] * MOVE_SPEED;
-            cub->player->pos[_Y_] -= cub->player->dir[_Y_] * MOVE_SPEED;
-        }
-    }
-	else if (keycode == D_KEY)
-    {
-        if (cub->map->map[(int)(cub->player->pos[_X_] - (strafeDir[_X_] * COLISION_DIS))][(int)(cub->player->pos[_Y_] - (strafeDir[_Y_] * COLISION_DIS))] != '1')
-        {
-            cub->player->pos[_X_] -= strafeDir[_X_] * MOVE_SPEED;
-            cub->player->pos[_Y_] -= strafeDir[_Y_] * MOVE_SPEED;
-        }
-    }
-    else if (keycode == LEFT_KEY )
-    {
-        rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], ROTATE_SPEED);
-	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], ROTATE_SPEED);
-    }
-    else if (keycode == RIGHT_KEY)
-    {
-        rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], -ROTATE_SPEED);
-	    rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], -ROTATE_SPEED);
-    }
-    draw(cub);
-    return (0);
+	else if (keycode == W_KEY || keycode == S_KEY)
+		move_vertical(keycode, cub, strafedir);
+	else if (keycode == A_KEY || keycode == D_KEY)
+		move_horizontal(keycode, cub, strafedir);
+	else if (keycode == LEFT_KEY)
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], ROTATE_SPEED);
+		rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], \
+		ROTATE_SPEED);
+	}
+	else if (keycode == RIGHT_KEY)
+	{
+		rotate(&cub->player->dir[_X_], &cub->player->dir[_Y_], -ROTATE_SPEED);
+		rotate(&cub->player->plane[_X_], &cub->player->plane[_Y_], \
+		-ROTATE_SPEED);
+	}
+	draw(cub);
+	return (0);
 }
 
 static int	x_hook(t_cub *cub)
 {
-    exit_cub(cub, 0);
-    return (0);
+	exit_cub(cub, 0);
+	return (0);
 }
 
 void	hook_handler(t_cub *cub)
 {
-    mlx_hook(cub->mlx->win, KeyPress, KeyPressMask, key_hook, cub);
+	mlx_hook(cub->mlx->win, KeyPress, KeyPressMask, key_hook, cub);
 	mlx_hook(cub->mlx->win, DestroyNotify, NoEventMask, x_hook, cub);
-    mlx_loop(cub->mlx->mlx);
-    mlx_loop_hook(cub->mlx->mlx, x_hook, cub);
+	mlx_loop(cub->mlx->mlx);
+	mlx_loop_hook(cub->mlx->mlx, x_hook, cub);
 }

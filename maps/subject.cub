@@ -1,8 +1,13 @@
-SO ./path_to_the_south_texture
-NO ./path_to_the_north_texture
+EA ./maps/textures/wolfenstein/red_brick.xpm
+
+
+SO ./maps/textures/wolfenstein/wood.xpm
+WE ./maps/textures/wolfenstein/wood.xpm
 F 220,100,0
-WE ./path_to_the_west_texture
-EA ./path_to_the_east_texture
+              
+
+
+NO ./maps/textures/wolfenstein/eagle.xpm
 C 225,30,0
 
         1111111111111111111111111

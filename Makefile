@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
+#    By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/08/15 19:34:55 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/08/16 18:22:06 by dofranci         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS =			src/main.c						\
 				src/textures/textures_path.c	\
 				src/mlx/init_mlx.c				\
 				src/mlx/hooks.c					\
+				src/mlx/hooks_utils.c					\
 				src/draw/draw.c					\
 				src/draw/raycasting.c			\
 

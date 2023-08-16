@@ -81,11 +81,19 @@ void	draw_vertical_line(t_cub *cub, int x, int y1, int y2)
 	wallX -= (int)floor(wallX);
 	
 	texX = (int)(wallX * (float)cub->tx_data[tx_side]->width);
+    if((int)texX > cub->tx_data[1]->width)
+        texX = cub->tx_data[1]->width;
+	else if(texX < 0)
+        texX = 0;
 	if ((cub->ray->hit_side == _X_ && (cub->ray->ray_dir[_X_] * mult) > 0) || (cub->ray->hit_side == _Y_ && (cub->ray->ray_dir[_Y_] * mult) < 0))
 		texX = cub->tx_data[tx_side]->width - texX - 1;
 	while (y1 < y2)
 	{
 		texY = ((y1 - WIN_HEIGHT / 2 + cub->ray->wall_line_height / 2) * cub->tx_data[tx_side]->height) / cub->ray->wall_line_height;
+		if((int)texY > cub->tx_data[1]->height)
+            texY = cub->tx_data[1]->height;
+		else if(texY < 0)
+			texY = 0;
 		if (texX < cub->tx_data[tx_side]->width && texY < cub->tx_data[tx_side]->height)
 			pixel_put(cub, x, y1, cub->tx_data[tx_side]->texture[texY][texX]);
 		y1++;
@@ -94,6 +102,10 @@ void	draw_vertical_line(t_cub *cub, int x, int y1, int y2)
 	while (y1 > y2)
 	{
 		texY = ((y1 - WIN_HEIGHT / 2 + cub->ray->wall_line_height / 2) * cub->tx_data[tx_side]->height) / cub->ray->wall_line_height;
+		if((int)texY > cub->tx_data[1]->height)
+            texY = cub->tx_data[1]->height;
+		else if(texY < 0)
+			texY = 0;
 		if (texX < cub->tx_data[tx_side]->width && texY < cub->tx_data[tx_side]->height)
 			pixel_put(cub, x, y1 - (y1 - fodace), cub->tx_data[tx_side]->texture[texY][texX]);
 		y1--;

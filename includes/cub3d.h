@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   cub3d.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
+/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:42:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/15 20:29:39 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/16 18:25:42 by dofranci         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -150,7 +150,6 @@ void	get_map(t_cub *cub, char **content, int file_index);
 // Validation
 void	map_validation(t_cub *cub);
 
-
 // Draw
 void	draw(t_cub *cub);
 void	draw_vertical_line(t_cub *cub, int x, int y1, int y2);
@@ -158,6 +157,8 @@ void	raycasting(t_cub *cub);
 
 // Hooks
 void    rotate(double *x, double *y, double angle);
+void	move_vertical(int keycode, t_cub *cub, double *strafedir);
+void	move_horizontal(int keycode, t_cub *cub, double *strafedir);
 void	hook_handler(t_cub *cub);
 
 // Allocs
@@ -165,7 +166,6 @@ void	free_map(t_cub *cub, int exit_num);
 void	free_textures(t_cub *cub);
 void	free_mlx(t_cub *cub);
 void	exit_cub(t_cub *cub, int exit_num);
-
 
 void	init_player(t_cub *cub);
 
