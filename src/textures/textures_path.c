@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:06:19 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/14 18:39:23 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/15 21:40:19 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,22 +19,25 @@ static int rgb_to_hex(char *rgb)
     int     int_rgb[3];
 
     split_rgb = ft_split(rgb, ',', 0);
-
     int_rgb[0] = ft_atoi(split_rgb[0]);
     int_rgb[1] = ft_atoi(split_rgb[1]);
     int_rgb[2] = ft_atoi(split_rgb[2]);
     ft_freemtx(split_rgb);
-
-	// JULGAR NECESSIDADE DISSO (não quebra o codigo)
-    // if (int_rgb[0] < 0 || int_rgb[0] > 255 || 
-    //     int_rgb[1] < 0 || int_rgb[1] > 255 || 
-    //     int_rgb[2] < 0 || int_rgb[2] > 255)
-    // {
-    //     return (-1);
-    // }
     hex = (int_rgb[0] << 16) | (int_rgb[1] << 8) | (int_rgb[2]);
     return (hex);
 }
+
+// // void	paths_validation(t_cub *cub, char **content, int file_index)
+// // {
+//     // }
+//     // }
+//     hex = (int_rgb[0] << 16) | (int_rgb[1] << 8) | (int_rgb[2]);
+//     return (hex);
+// }
+// // }
+//     hex = (int_rgb[0] << 16) | (int_rgb[1] << 8) | (int_rgb[2]);
+//     return (hex);
+// }
 
 void	get_textures_path(t_cub *cub, char **content, int *file_index)
 {
@@ -62,22 +65,22 @@ void	get_textures_path(t_cub *cub, char **content, int *file_index)
 				cub->map->ceil_color = rgb_to_hex(temp[1]);
 			else
 			{
+				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
 				ft_freemtx(temp);
 				ft_freemtx(content);
-				ft_freemtx(cub->map->textures_paths);
+				texture_posi = -1;
+				while (++texture_posi < 4)
+					free(cub->map->textures_paths[texture_posi]);
+				free(cub->map->textures_paths);
 				free(cub->map);
 				free(cub);
-				ft_putstr_fd("Error\nIncorrectly defined textures\n", STDERR_FILENO);
 				exit(41);
 			}
 			texture_posi++;
 			ft_freemtx(temp);
 		}
 		else if (texture_posi > 5)
-		{
-			while (line_is_empty(content[++*file_index]) == TRUE) ;
 			return ;
-		}
 		*file_index += 1;
 	}
 }
