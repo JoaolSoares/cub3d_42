@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:05:48 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/15 22:27:08 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/16 19:21:41 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	tx_file_error(t_cub *cub, int tx)
 {
 	int	y;
-	
+
 	ft_putstr_fd("Error\nInvalid textures path\n", \
 	STDERR_FILENO);
 	free_map(cub, 0);

@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:34:15 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/15 22:39:50 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/16 21:26:53 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,8 +133,7 @@ void	raycasting(t_cub *cub)
 		dist_to_side_calculate(cub);
 		dda_algorithm(cub);
 		line_calculate(cub);
-		draw_vertical_line(cub, WIN_WIDTH - pixel_x, \
-		(int)cub->ray->line_start, (int)cub->ray->line_end);
+		draw_vertical_line(cub, WIN_WIDTH - pixel_x);
 		pixel_x++;
 	}
 }

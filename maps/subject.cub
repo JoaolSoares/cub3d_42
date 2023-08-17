@@ -1,13 +1,9 @@
 EA ./maps/textures/wolfenstein/red_brick.xpm
-
-
 SO ./maps/textures/wolfenstein/wood.xpm
 WE ./maps/textures/wolfenstein/wood.xpm
-F 220,100,0
-              
-
-
 NO ./maps/textures/wolfenstein/eagle.xpm
+
+F 220,100,0
 C 225,30,0
 
         1111111111111111111111111
