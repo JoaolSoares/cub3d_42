@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/04 21:30:17 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/16 18:25:49 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:25:04 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int	key_hook(int keycode, t_cub *cub)
 	if (keycode == ESC_KEY)
 		exit_cub(cub, 0);
 	else if (keycode == W_KEY || keycode == S_KEY)
-		move_vertical(keycode, cub, strafedir);
+		move_vertical(keycode, cub);
 	else if (keycode == A_KEY || keycode == D_KEY)
 		move_horizontal(keycode, cub, strafedir);
 	else if (keycode == LEFT_KEY)

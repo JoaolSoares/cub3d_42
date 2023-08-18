@@ -6,23 +6,20 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 23:06:19 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/16 19:36:56 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:18:43 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-static int	rgb_to_hex(char *rgb)
+static int	rgb_to_hex(char **rgb)
 {
 	int		hex;
-	char	**split_rgb;
 	int		int_rgb[3];
 
-	split_rgb = ft_split(rgb, ',', 0);
-	int_rgb[0] = ft_atoi(split_rgb[0]);
-	int_rgb[1] = ft_atoi(split_rgb[1]);
-	int_rgb[2] = ft_atoi(split_rgb[2]);
-	ft_freemtx(split_rgb);
+	int_rgb[0] = ft_atoi(rgb[1]);
+	int_rgb[1] = ft_atoi(rgb[2]);
+	int_rgb[2] = ft_atoi(rgb[3]);
 	hex = (int_rgb[0] << 16) | (int_rgb[1] << 8) | (int_rgb[2]);
 	return (hex);
 }
@@ -46,21 +43,17 @@ static void	texture_error(t_cub *cub, char **content, char **temp)
 static int	texture_assign(t_cub *cub, char **temp)
 {
 	if (!ft_strncmp(temp[0], "NO", 3) && cub->map->textures_paths[NO] == 0)
-		cub->map->textures_paths[NO] = \
-		ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+		cub->map->textures_paths[NO] = ft_strdup(temp[1]);
 	else if (!ft_strncmp(temp[0], "SO", 3) && cub->map->textures_paths[SO] == 0)
-		cub->map->textures_paths[SO] = \
-		ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+		cub->map->textures_paths[SO] = ft_strdup(temp[1]);
 	else if (!ft_strncmp(temp[0], "WE", 3) && cub->map->textures_paths[WE] == 0)
-		cub->map->textures_paths[WE] = \
-		ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+		cub->map->textures_paths[WE] = ft_strdup(temp[1]);
 	else if (!ft_strncmp(temp[0], "EA", 3) && cub->map->textures_paths[EA] == 0)
-		cub->map->textures_paths[EA] = \
-		ft_strdup_until(temp[1], ft_strlen(temp[1]) - 1);
+		cub->map->textures_paths[EA] = ft_strdup(temp[1]);
 	else if (!ft_strncmp(temp[0], "F", 2) && cub->map->floor_color == 0)
-		cub->map->floor_color = rgb_to_hex(temp[1]);
+		cub->map->floor_color = rgb_to_hex(temp);
 	else if (!ft_strncmp(temp[0], "C", 2) && cub->map->ceil_color == 0)
-		cub->map->ceil_color = rgb_to_hex(temp[1]);
+		cub->map->ceil_color = rgb_to_hex(temp);
 	else
 		return (FALSE);
 	return (TRUE);
@@ -77,7 +70,7 @@ void	get_textures_path(t_cub *cub, char **content, int *file_index)
 	{
 		if (texture_posi <= 5 && line_is_empty(content[*file_index]) == FALSE)
 		{
-			temp = ft_split(content[*file_index], ' ', 0);
+			temp = ft_mult_split(content[*file_index], "\t \n,", 0);
 			if (texture_assign(cub, temp) == TRUE)
 			{
 				texture_posi++;

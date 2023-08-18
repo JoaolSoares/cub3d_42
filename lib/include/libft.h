@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/27 21:55:50 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/06/26 20:34:57 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:00:51 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ int			ft_strncmp(const char *s1, const char *s2, size_t n);
 char		*ft_strnstr(const char *big, const char *little, size_t len);
 char		*ft_strdup(const char *src);
 char		**ft_mtxdup(char **mtx);
-char	    *ft_strdup_until(const char *s, size_t index);
+char		*ft_strdup_until(const char *s, size_t index);
 char		*ft_substr(char const *s, unsigned int start, size_t len);
 char		*ft_strjoin(char *s1, char *s2);
 char		*ft_strtrim(char const *s1, char const *set);
 char		**ft_split(char *s, char c, int opt);
+char		**ft_mult_split(char *s, char *set, int opt);
 char		*ft_strinsert(char *str, char *insert, int index_insert);
 
 char		*ft_strmapi(char const *s, char (*f)(unsigned int, char));

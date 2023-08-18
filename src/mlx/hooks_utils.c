@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   hooks_utils.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: dofranci <dofranci@student.42sp.org.br>    +#+  +:+       +#+        */
+/*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 18:20:46 by dofranci          #+#    #+#             */
-/*   Updated: 2023/08/16 18:22:20 by dofranci         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:24:38 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	rotate(double *x, double *y, double angle)
 	*y = new_y;
 }
 
-void	move_vertical(int keycode, t_cub *cub, double *strafedir)
+void	move_vertical(int keycode, t_cub *cub)
 {
 	if (keycode == W_KEY)
 	{

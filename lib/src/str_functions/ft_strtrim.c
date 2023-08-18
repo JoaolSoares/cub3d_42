@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/16 00:46:34 by jlucas-s          #+#    #+#             */
-/*   Updated: 2022/10/26 23:51:55 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/17 21:02:16 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,13 +66,17 @@ char	*ft_strtrim(char const *s1, char const *set)
 	return (str);
 }
 
-/* 
-#include <stdio.h>
+/* #include <stdio.h>
 int main(void)
 {
-	char *s1 = "lorem ipsum dolor sit amet";
-	char *set = "te"; // ello world
-	printf("  s1: %s\n  set: %s\ntrim:\n%s\n", s1, set, ft_strtrim(s1, set));
+	char *s1 = "	 C 135,206,235 	 \n";
+	char *set = "\t ";
+	printf("  s1: %s\n  set: %s\ntrim:\n|%s|\n", s1, set, ft_strtrim(s1, set));
+	char **temp = ft_split(ft_strtrim(s1, set), ' ', 1);
+	ft_printf("trim = |%s|\n", temp[0]);
+	ft_printf("trim = |%s|\n", temp[1]);
+	ft_printf("trim = |%s|\n", temp[2]);
+	ft_printf("-------------------\n");
 	return 0;
 }
  */

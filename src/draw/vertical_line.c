@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:38:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/16 21:49:14 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/17 22:20:07 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,16 @@ static void	draw_line(t_cub *cub, int x)
 		cub->ray->tex[_Y_] < cub->tx_data[cub->ray->tex_side]->height)
 		{
 			if ((int)cub->ray->line_start < (int)cub->ray->line_end)
-			{
 				pixel_put(cub, x, (int)cub->ray->line_start++, \
 				cub->tx_data[cub->ray->tex_side]->texture[cub->ray->tex[_Y_]] \
 				[cub->ray->tex[_X_]]);
-			}
 			else
 			{
-				pixel_put(cub, x, (int)cub->ray->line_start-- - \
+				pixel_put(cub, x, (int)cub->ray->line_start - \
 				((int)cub->ray->line_start - end_copy), \
 				cub->tx_data [cub->ray->tex_side]->texture[cub->ray->tex[_Y_]] \
 				[cub->ray->tex[_X_]]);
+				cub->ray->line_start--;
 				end_copy++;
 			}
 		}
@@ -81,7 +80,7 @@ static void	get_tex_side(t_cub *cub)
 void	draw_vertical_line(t_cub *cub, int x)
 {
 	get_tex_side(cub);
-	if ((cub->ray->hit_side == _X_ && cub->ray->ray_dir[_X_]) < 0 || \
+	if ((cub->ray->hit_side == _X_ && cub->ray->ray_dir[_X_] < 0) || \
 	(cub->ray->hit_side == _Y_ && cub->ray->ray_dir[_Y_] < 0))
 	{
 		cub->ray->ray_dir[_X_] *= -1;
