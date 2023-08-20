@@ -1,7 +1,0 @@
-{
-    "files.associations": {
-        "x.h": "c",
-        "keysym.h": "c",
-        "cub3d.h": "c"
-    }
-}
