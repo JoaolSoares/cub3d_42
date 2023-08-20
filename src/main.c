@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/13 19:44:21 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/02 22:12:03 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/15 22:27:57 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,14 @@ int	main(int argc, char *argv[])
 
 	arg_validation(argc, argv);
 	cub = (t_cub *)malloc(sizeof(t_cub));
-	init_map(cub, argv[1]);
+	if (!cub)
+		exit(1);
+	read_file(cub, argv[1]);
 	map_validation(cub);
-
 	init_mlx(cub);
+	init_textures(cub);
 	init_player(cub);
 	draw(cub);
-
 	hook_handler(cub);
 	exit_cub(cub, 0);
 }

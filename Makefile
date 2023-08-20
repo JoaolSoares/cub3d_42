@@ -6,15 +6,13 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/08/03 00:16:39 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/08/17 21:20:37 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME =			cub3d
+NAME =			cub3D
 
-# FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -lm -g -ggdb 
-
-FLAGS =			-lmlx -lXext -lX11 -lm -g -ggdb
+FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -lm
 
 CC =			cc
 
@@ -28,14 +26,20 @@ INC =			-I ./includes
 LIBFTPATH =		./lib
 LIBFT =			./lib/libft.a
 
-SRCS =			src/main.c					\
-				src/allocs.c				\
-				src/map/init_map.c			\
-				src/map/get_infos.c			\
-				src/map/validation.c		\
-				src/mlx/init_mlx.c			\
-				src/mlx/draw.c				\
-				src/mlx/hooks.c				\
+SRCS =			src/main.c						\
+				src/allocs.c					\
+				src/read_file.c					\
+				src/player.c					\
+				src/map/get_map.c				\
+				src/map/validation.c			\
+				src/textures/textures_mtx.c		\
+				src/textures/textures_path.c	\
+				src/mlx/init_mlx.c				\
+				src/mlx/hooks.c					\
+				src/mlx/hooks_utils.c			\
+				src/draw/draw.c					\
+				src/draw/raycasting.c			\
+				src/draw/vertical_line.c		\
 
 OBJS_DIR = 		./objects
 OBJS =			${SRCS:%.c=$(OBJS_DIR)/%.o}

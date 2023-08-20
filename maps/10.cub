@@ -1,23 +1,11 @@
 
 
+NO maps/textures/johncena.xpm
 
 
-
-
-
-
-NO textures/wolfenstein/purple_stone.xpm
-
-
-
-
-
-
-
-
-SO textures/wolfenstein/eagle.xpm
-                        WE textures/wolfenstein/red_brick.xpm
-        EA textures/wolfenstein/wood.xpm
+SO maps/textures/wolfenstein/eagle.xpm
+                        WE maps/textures/wolfenstein/red_brick.xpm
+        EA maps/textures/wolfenstein/wood.xpm
 
                              F 20,20,20
 C 200,200,200
@@ -35,25 +23,4 @@ C 200,200,200
 10001
 10001
 11111
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

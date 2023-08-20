@@ -45,6 +45,7 @@ SRCS =  src/is_functions/ft_isalnum.c		\
 		src/str_functions/ft_strtrim.c		\
 		src/str_functions/ft_strinsert.c	\
 		src/str_functions/ft_split.c		\
+		src/str_functions/ft_mult_split.c	\
 		src/str_functions/ft_strmapi.c		\
 		src/str_functions/ft_striteri.c		\
 		src/str_functions/ft_strlen_until.c	\

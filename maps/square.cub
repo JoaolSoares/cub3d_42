@@ -1,18 +1,26 @@
-NO textures/wolfenstein/purple_stone.xpm
-SO textures/wolfenstein/eagle.xpm
-WE textures/wolfenstein/red_brick.xpm
-EA textures/wolfenstein/wood.xpm
+   		EA ./maps/textures/wolfenstein/red_brick.xpm	 	 	
 
-F 20,20,20
-C 135,206,235
+
+				SO ./maps/textures/wolfenstein/wood.xpm 		 	 
+			WE			 ./maps/textures/wolfenstein/wood.xpm 	 	 	  
+
+              
+
+
+			NO             ./maps/textures/wolfenstein/eagle.xpm	 	 	 	  	 	 	
+
+  	 	 	F 		20         ,   20  ,	 	20    
+C 		 			135 	 	,	 	 	206,   235	 	 	 	
+
+	
 
 1111111111
 1000000001
 1000000001
 1000000001
 1010000001
-100000W011
+10000S0011
 1000000001
-1000000001
+1000000001 		
 1100000001
 1111111111
