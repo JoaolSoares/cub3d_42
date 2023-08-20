@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 21:23:44 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/17 21:32:10 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/20 19:46:22 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@
 #define LEFT_KEY		65361
 #define RIGHT_KEY		65363
 
-#define COLISION_DIS	0.5
+#define COLISION_DIS	0.75
 #define MOVE_SPEED		0.1
 #define ROTATE_SPEED	0.1
 

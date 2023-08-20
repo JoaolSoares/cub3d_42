@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/16 19:38:56 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/17 22:20:07 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/20 18:43:58 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,8 +42,9 @@ static void	draw_line(t_cub *cub, int x)
 			{
 				pixel_put(cub, x, (int)cub->ray->line_start - \
 				((int)cub->ray->line_start - end_copy), \
-				cub->tx_data [cub->ray->tex_side]->texture[cub->ray->tex[_Y_]] \
-				[cub->ray->tex[_X_]]);
+				cub->tx_data[cub->ray->tex_side]->texture[cub->ray->tex[_Y_]] \
+				[cub->tx_data[cub->ray->tex_side]->width - \
+				cub->ray->tex[_X_] - 1]);
 				cub->ray->line_start--;
 				end_copy++;
 			}
