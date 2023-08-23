@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/09 22:39:42 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/15 22:29:13 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 01:49:42 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ void	init_player(t_cub *cub)
 	cub->ray = malloc(sizeof(t_raycasting));
 	cub->player->pos[_X_] = (double)cub->map->player_x + COLISION_DIS;
 	cub->player->pos[_Y_] = (double)cub->map->player_y + COLISION_DIS;
-	cub->player->plane[_X_] = 0.66; 
+	cub->player->plane[_X_] = 0.66;
 	cub->player->plane[_Y_] = 0;
 	player_direction(cub);
 }

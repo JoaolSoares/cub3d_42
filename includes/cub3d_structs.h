@@ -6,29 +6,32 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/17 21:23:44 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/20 19:46:22 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 01:53:09 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
+#ifndef CUB3D_STRUCTS_H
+# define CUB3D_STRUCTS_H
+
 //  DEFINES  //
-#define WIN_WIDTH 		800
-#define WIN_HEIGHT		600
+# define WIN_WIDTH 		800
+# define WIN_HEIGHT		600
 
-#define ESC_KEY			65307
-#define W_KEY			119
-#define A_KEY			97
-#define S_KEY			115
-#define D_KEY			100
-#define LEFT_KEY		65361
-#define RIGHT_KEY		65363
+# define ESC_KEY		65307
+# define W_KEY			119
+# define A_KEY			97
+# define S_KEY			115
+# define D_KEY			100
+# define LEFT_KEY		65361
+# define RIGHT_KEY		65363
 
-#define COLISION_DIS	0.75
-#define MOVE_SPEED		0.1
-#define ROTATE_SPEED	0.1
+# define COLISION_DIS	0.75
+# define MOVE_SPEED		0.1
+# define ROTATE_SPEED	0.1
 
-#define PI				3.141592653589793
-#define _X_				0
-#define _Y_				1
+# define PI				3.141592653589793
+# define _X_			0
+# define _Y_			1
 
 //  STRUCTS  //
 typedef enum e_tx
@@ -83,7 +86,7 @@ typedef struct s_raycasting
 
 typedef struct s_player
 {
-	double	dir[2]; 
+	double	dir[2];
 	double	plane[2];
 	double	pos[2];
 
@@ -123,3 +126,5 @@ typedef struct s_cub
 	t_texture		*tx_data[4];
 
 }	t_cub;
+
+#endif

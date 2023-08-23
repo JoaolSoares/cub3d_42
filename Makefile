@@ -6,13 +6,14 @@
 #    By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/12/09 00:10:02 by jlucas-s          #+#    #+#              #
-#    Updated: 2023/08/17 21:20:37 by jlucas-s         ###   ########.fr        #
+#    Updated: 2023/08/23 02:27:46 by jlucas-s         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
 NAME =			cub3D
 
-FLAGS =			-Werror -Wall -Wextra -lmlx -lXext -lX11 -lm
+FLAGS =			-Werror -Wall -Wextra
+MLX_FLAGS =		-lmlx -lXext -lX11 -lm
 
 CC =			cc
 
@@ -48,13 +49,13 @@ all: ${NAME}
 
 ${NAME}: ${OBJS}
 	@ echo "${YELLOW}-=- Compiling... -=-${NOCOLOR}"
-	@ make -s -C ${LIBFTPATH} 
-	@ $(CC) $(OBJS) $(FLAGS) $(LIBFT) -o $(NAME)
+	@ make -s -C ${LIBFTPATH}
+	@ $(CC) $(FLAGS) $(OBJS) $(LIBFT) -o $(NAME) $(MLX_FLAGS)
 	@ echo "${GREEN}-=- CUB3D MANDATORY SUCCESSFUL COMPILED -=-${NOCOLOR}"
 
 $(OBJS_DIR)/%.o: %.c
 	@ mkdir -p $(dir $@)
-	@ $(CC) $(INC) $(FLAGS) -c $< -o $@
+	@ $(CC) $(FLAGS) $(INC) -c $< -o $@
 
 clean:
 	@ make fclean -s -C ${LIBFTPATH}
@@ -66,7 +67,4 @@ fclean: clean
 
 re: fclean all
 
-run: ${NAME}
-	@./$(NAME)
-
-.PHONY: all clean fclean run valgrind
+.PHONY: all clean fclean re

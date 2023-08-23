@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/08/15 19:34:15 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/17 22:09:15 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 01:50:18 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ static void	deltadist_calculate(t_cub *cub)
 	else
 	{
 		if (cub->ray->ray_dir[_X_] != 0)
-			cub->ray->delta_dist[_Y_] = fabs(1 / cub->ray->ray_dir[_Y_]); 
+			cub->ray->delta_dist[_Y_] = fabs(1 / cub->ray->ray_dir[_Y_]);
 	}
 }
 

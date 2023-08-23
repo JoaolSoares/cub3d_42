@@ -6,7 +6,7 @@
 /*   By: jlucas-s <jlucas-s@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/06/27 21:22:23 by jlucas-s          #+#    #+#             */
-/*   Updated: 2023/08/17 21:57:11 by jlucas-s         ###   ########.fr       */
+/*   Updated: 2023/08/23 01:49:55 by jlucas-s         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static void	is_scapable(t_cub *cub, int x, int y)
 {
 	if (x == 0 || y == 0 || \
-		x == cub->map->height - 1 || 
+		x == cub->map->height - 1 || \
 		y == (int)ft_strlen(cub->map->map[x]) - 1 || \
 		y >= (int)ft_strlen(cub->map->map[x + 1]) || \
 		y >= (int)ft_strlen(cub->map->map[x - 1]) || \
